@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nolaris Network | Official Minecraft Network</title>
-  <meta name="description" content="Nolaris Network is a new Minecraft network in beta, built with quality, style and performance." />
+
+  <title>Nolaris Network | Network Oficial de Minecraft</title>
+  <meta name="description" content="Nolaris Network es una nueva network de Minecraft en fase beta, construida con calidad, estilo y rendimiento." />
   <meta name="theme-color" content="#050505" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,508 +13,1420 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#050505;
-      --bg2:#0b0b0b;
-      --card:rgba(17,17,17,.72);
-      --card2:rgba(24,18,20,.78);
-      --red-dark:#5a0000;
-      --red-mid:#8b0000;
-      --red:#cc0000;
-      --neon:#ff2a2a;
-      --text:#f5f5f5;
-      --muted:#a3a3a3;
-      --muted2:#737373;
-      --border:rgba(255,42,42,.18);
-      --border2:rgba(255,42,42,.38);
-      --glow:0 0 46px rgba(255,42,42,.18);
-      --glow2:0 0 90px rgba(255,42,42,.34);
-      --radius:28px;
-      --max:1180px;
+    :root {
+      --bg: #050505;
+      --bg2: #0b0b0b;
+      --panel: rgba(18, 18, 20, 0.78);
+      --panel2: rgba(28, 18, 20, 0.72);
+      --red-dark: #5a0000;
+      --red-mid: #8b0000;
+      --red: #cc0000;
+      --neon: #ff2a2a;
+      --text: #f5f5f5;
+      --muted: #a3a3a3;
+      --muted2: #747474;
+      --border: rgba(255, 42, 42, 0.18);
+      --border2: rgba(255, 42, 42, 0.36);
+      --radius: 24px;
+      --max: 1180px;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      min-height:100vh;
-      overflow-x:hidden;
-      color:var(--text);
-      font-family:"Inter",sans-serif;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      font-family: "Inter", sans-serif;
       background:
-        radial-gradient(circle at 16% 8%,rgba(255,42,42,.18),transparent 30%),
-        radial-gradient(circle at 84% 0%,rgba(90,0,0,.38),transparent 36%),
-        radial-gradient(circle at 50% 92%,rgba(204,0,0,.13),transparent 38%),
-        linear-gradient(180deg,#050505 0%,#080608 52%,#030303 100%);
+        radial-gradient(circle at 20% 8%, rgba(255, 42, 42, 0.14), transparent 30%),
+        radial-gradient(circle at 82% 0%, rgba(90, 0, 0, 0.28), transparent 34%),
+        linear-gradient(180deg, #050505 0%, #090708 52%, #030303 100%);
+      overflow-x: hidden;
     }
 
-    a{color:inherit;text-decoration:none}
-    button{font:inherit}
-    .container{width:min(100% - 40px,var(--max));margin:0 auto;position:relative;z-index:2}
-
-    .noise{
-      position:fixed;inset:0;z-index:-5;pointer-events:none;opacity:.12;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 260 260' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .grid-bg{
-      position:fixed;inset:0;z-index:-6;pointer-events:none;
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(100% - 34px, var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    #particlesCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -4;
+      pointer-events: none;
+    }
+
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      pointer-events: none;
       background-image:
-        linear-gradient(rgba(255,255,255,.026) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.026) 1px,transparent 1px);
-      background-size:58px 58px;
-      mask-image:radial-gradient(circle at center,#000,transparent 78%);
+        linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at center, black, transparent 78%);
     }
 
-    .mouse-glow{
-      position:fixed;width:480px;height:480px;border-radius:50%;z-index:-2;pointer-events:none;
-      left:50%;top:30%;transform:translate(-50%,-50%);
-      background:radial-gradient(circle,rgba(255,42,42,.16),transparent 64%);
-      filter:blur(20px);opacity:.8;
+    .mouse-glow {
+      position: fixed;
+      width: 360px;
+      height: 360px;
+      left: 50%;
+      top: 30%;
+      transform: translate3d(-50%, -50%, 0);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -3;
+      background: radial-gradient(circle, rgba(255, 42, 42, 0.13), transparent 66%);
+      opacity: 0.75;
+      will-change: transform;
     }
 
-    .ambient{
-      position:fixed;z-index:-3;pointer-events:none;border-radius:999px;filter:blur(86px);opacity:.68;
-    }
-    .ambient.one{width:520px;height:520px;left:-190px;top:70px;background:rgba(255,42,42,.18)}
-    .ambient.two{width:620px;height:620px;right:-260px;top:-170px;background:rgba(90,0,0,.42)}
-    .ambient.three{width:560px;height:560px;left:36%;bottom:-330px;background:rgba(204,0,0,.12)}
-
-    .particles{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
-    .particle{
-      position:absolute;border-radius:999px;background:rgba(255,42,42,.95);
-      box-shadow:0 0 18px rgba(255,42,42,.9);
-      opacity:0;animation:particleFloat linear infinite;
+    .ambient {
+      position: fixed;
+      pointer-events: none;
+      z-index: -6;
+      border-radius: 999px;
+      filter: blur(70px);
+      opacity: 0.55;
     }
 
-    @keyframes particleFloat{
-      0%{opacity:0;transform:translateY(108vh) translateX(0) scale(.7);filter:blur(0)}
-      12%{opacity:.9}
-      55%{filter:blur(.6px)}
-      82%{opacity:.42}
-      100%{opacity:0;transform:translateY(-12vh) translateX(var(--drift)) scale(1.25);filter:blur(1.5px)}
+    .ambient.one {
+      width: 420px;
+      height: 420px;
+      left: -160px;
+      top: 90px;
+      background: rgba(255, 42, 42, 0.14);
     }
 
-    .nav{
-      position:fixed;top:18px;left:50%;transform:translateX(-50%);
-      width:min(100% - 32px,var(--max));z-index:50;border:1px solid var(--border);
-      border-radius:999px;background:rgba(8,7,9,.72);backdrop-filter:blur(24px);
-      box-shadow:0 22px 75px rgba(0,0,0,.5),0 0 42px rgba(255,42,42,.08);
-      transition:.25s ease;
-    }
-    .nav.scrolled{
-      background:rgba(7,6,8,.96);border-color:rgba(255,42,42,.34);
-      box-shadow:0 24px 88px rgba(0,0,0,.64),0 0 52px rgba(255,42,42,.16);
-    }
-    .nav-inner{min-height:70px;padding:0 18px 0 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
-    .brand-logo{
-      width:43px;height:43px;display:grid;place-items:center;border-radius:16px;
-      font-family:"Rajdhani",sans-serif;font-weight:700;font-size:26px;
-      background:linear-gradient(145deg,rgba(255,42,42,.34),rgba(90,0,0,.48)),rgba(255,255,255,.04);
-      border:1px solid rgba(255,42,42,.38);box-shadow:0 0 32px rgba(255,42,42,.26);
-    }
-    .brand strong{display:block;font-family:"Rajdhani",sans-serif;font-size:21px;line-height:1}
-    .brand span{display:block;margin-top:3px;color:var(--muted2);font-size:11px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase}
-
-    .nav-links{display:flex;gap:6px;align-items:center}
-    .nav-links a{
-      color:#d9d9df;font-size:13px;font-weight:800;padding:10px 11px;border-radius:999px;transition:.2s ease;
-    }
-    .nav-links a:hover{
-      color:#fff;background:rgba(255,42,42,.09);box-shadow:inset 0 0 0 1px rgba(255,42,42,.15);
-      text-shadow:0 0 18px rgba(255,42,42,.55);
+    .ambient.two {
+      width: 460px;
+      height: 460px;
+      right: -190px;
+      top: -120px;
+      background: rgba(90, 0, 0, 0.35);
     }
 
-    .nav-actions{display:flex;align-items:center;gap:10px}
-    .ip-pill,.menu-btn{
-      border:1px solid rgba(255,42,42,.26);background:rgba(255,255,255,.045);color:var(--text);cursor:pointer;transition:.22s ease;
-    }
-    .ip-pill{
-      display:inline-flex;align-items:center;gap:9px;padding:10px 14px;border-radius:999px;font-size:13px;font-weight:900;
-    }
-    .ip-pill:hover{border-color:rgba(255,42,42,.58);box-shadow:0 0 32px rgba(255,42,42,.17);transform:translateY(-1px)}
-    .menu-btn{display:none;width:42px;height:42px;border-radius:14px}
-
-    .pulse,.ip-pill i,.chip i,.live i{
-      width:8px;height:8px;display:inline-block;border-radius:999px;background:var(--neon);
-      box-shadow:0 0 18px var(--neon);animation:pulse 1.75s ease-in-out infinite;
-    }
-    @keyframes pulse{0%,100%{opacity:.62;transform:scale(.88)}50%{opacity:1;transform:scale(1.18)}}
-
-    .hero{
-      min-height:100vh;padding:178px 0 98px;position:relative;display:flex;align-items:center;overflow:hidden;
-    }
-    .hero:after{
-      content:"";position:absolute;inset:auto 0 0 0;height:280px;
-      background:linear-gradient(0deg,#050505 0%,transparent 100%);z-index:1;pointer-events:none;
-    }
-    .speed-lines{
-      position:absolute;inset:0;pointer-events:none;opacity:.75;
-      background:
-        linear-gradient(120deg,transparent 0%,rgba(255,42,42,.075) 32%,transparent 62%),
-        linear-gradient(60deg,transparent 0%,rgba(255,255,255,.035) 50%,transparent 72%);
-      animation:moveLines 9s ease-in-out infinite alternate;
-    }
-    @keyframes moveLines{from{transform:translateX(-18px)}to{transform:translateX(18px)}}
-
-    .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.78fr);gap:54px;align-items:center}
-    .chip{
-      width:max-content;max-width:100%;display:inline-flex;align-items:center;gap:10px;padding:9px 14px;margin-bottom:25px;
-      border-radius:999px;border:1px solid rgba(255,42,42,.3);background:rgba(255,42,42,.075);
-      color:#ffd4d4;box-shadow:0 0 36px rgba(255,42,42,.1);font-size:12px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;
+    .nav {
+      position: fixed;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(100% - 28px, var(--max));
+      z-index: 50;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(8, 8, 10, 0.84);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
+      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
     }
 
-    h1{
-      font-family:"Rajdhani",sans-serif;font-size:clamp(66px,10vw,132px);
-      line-height:.82;letter-spacing:-2px;text-transform:uppercase;margin-bottom:28px;
-    }
-    h1 span{display:block;color:var(--text);text-shadow:0 0 30px rgba(255,42,42,.3),0 0 90px rgba(255,42,42,.14)}
-    h1 strong{
-      display:block;font-weight:700;
-      background:linear-gradient(90deg,#fff 0%,#ffb0b0 18%,#ff2a2a 52%,#710000 100%);
-      -webkit-background-clip:text;background-clip:text;color:transparent;
-      filter:drop-shadow(0 0 34px rgba(255,42,42,.32));
-    }
-    .hero-text{max-width:735px;color:#cacad2;font-size:clamp(16px,2vw,20px);line-height:1.82;margin-bottom:32px}
-    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:36px}
-
-    .btn{
-      min-height:54px;padding:0 24px;border-radius:16px;border:1px solid transparent;
-      display:inline-flex;align-items:center;justify-content:center;color:var(--text);cursor:pointer;
-      font-size:14px;font-weight:900;letter-spacing:.3px;position:relative;overflow:hidden;transition:.25s ease;
-    }
-    .btn:before{
-      content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.24),transparent);
-      transform:translateX(-120%);transition:.45s ease;
-    }
-    .btn:hover:before{transform:translateX(120%)}
-    .btn-primary{
-      background:linear-gradient(135deg,#ff2a2a,#8a0000),#cc0000;
-      box-shadow:0 0 40px rgba(255,42,42,.36),inset 0 1px 0 rgba(255,255,255,.25);
-    }
-    .btn-primary:hover{transform:translateY(-4px);box-shadow:0 0 66px rgba(255,42,42,.54),0 16px 44px rgba(0,0,0,.42)}
-    .btn-secondary{background:rgba(255,255,255,.045);border-color:rgba(255,42,42,.25)}
-    .btn-secondary:hover{transform:translateY(-4px);border-color:rgba(255,42,42,.58);background:rgba(255,42,42,.095);box-shadow:0 0 36px rgba(255,42,42,.17)}
-
-    .hero-metrics{max-width:740px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .metric{
-      padding:18px;border-radius:20px;background:linear-gradient(145deg,rgba(255,42,42,.065),transparent 45%),rgba(255,255,255,.038);
-      border:1px solid rgba(255,42,42,.17);box-shadow:inset 0 1px 0 rgba(255,255,255,.046);
-    }
-    .metric small{display:block;color:var(--muted2);font-size:11px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:8px}
-    .metric b{font-family:"Rajdhani",sans-serif;font-size:27px}
-
-    .hero-panel{
-      position:relative;padding:27px;border-radius:36px;
-      background:linear-gradient(145deg,rgba(255,42,42,.11),transparent 45%),rgba(12,10,13,.8);
-      border:1px solid rgba(255,42,42,.27);box-shadow:var(--glow),inset 0 1px 0 rgba(255,255,255,.06);
-      backdrop-filter:blur(20px);overflow:hidden;
-    }
-    .hero-panel:before{
-      content:"";position:absolute;inset:-1px;
-      background:radial-gradient(circle at 50% 0%,rgba(255,42,42,.27),transparent 42%),
-      linear-gradient(135deg,rgba(255,42,42,.13),transparent 46%,rgba(255,255,255,.05));
-      pointer-events:none;
-    }
-    .hero-panel>*{position:relative;z-index:2}
-    .panel-top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:23px}
-    .panel-top span{display:block;color:var(--muted2);font-size:11px;font-weight:900;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:4px}
-    .panel-top h2{font-family:"Rajdhani",sans-serif;font-size:35px}
-    .live{
-      display:inline-flex;align-items:center;gap:9px;padding:8px 12px;border-radius:999px;
-      border:1px solid rgba(255,42,42,.31);background:rgba(255,42,42,.08);
-      color:#ffd8d8;font-size:11px;font-weight:900;text-transform:uppercase;
+    .nav.scrolled {
+      background: rgba(7, 7, 9, 0.94);
+      border-color: rgba(255, 42, 42, 0.34);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.58);
     }
 
-    .core-screen{
-      min-height:320px;display:grid;place-items:center;border-radius:30px;border:1px solid rgba(255,42,42,.19);
-      background:radial-gradient(circle at 50% 50%,rgba(255,42,42,.25),transparent 32%),
-      radial-gradient(circle at 50% 10%,rgba(255,255,255,.055),transparent 40%),rgba(0,0,0,.27);
-      overflow:hidden;position:relative;
-    }
-    .scan{
-      position:absolute;width:160%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,42,42,.55),transparent);
-      animation:scan 3.6s ease-in-out infinite;
-    }
-    @keyframes scan{0%,100%{top:18%;opacity:.1}50%{top:78%;opacity:.75}}
-    .ring{position:absolute;border-radius:50%;border:1px solid rgba(255,42,42,.19);box-shadow:0 0 36px rgba(255,42,42,.09)}
-    .ring.one{width:260px;height:260px;animation:ringSpin 12s linear infinite}
-    .ring.two{width:188px;height:188px;animation:ringSpin 8s linear infinite reverse}
-    .ring.three{width:330px;height:124px;transform:rotate(-18deg);animation:ringTilt 7s ease-in-out infinite}
-    .ring:before{
-      content:"";position:absolute;top:24px;left:50%;width:8px;height:8px;border-radius:50%;
-      background:var(--neon);box-shadow:0 0 18px var(--neon);
-    }
-    @keyframes ringSpin{to{transform:rotate(360deg)}}
-    @keyframes ringTilt{0%,100%{transform:rotate(-18deg) scale(1);opacity:.55}50%{transform:rotate(18deg) scale(1.05);opacity:.92}}
-
-    .cube{
-      width:138px;height:138px;position:relative;transform-style:preserve-3d;transform:rotateX(-20deg) rotateY(36deg);
-      animation:cubeFloat 5s ease-in-out infinite;filter:drop-shadow(0 0 42px rgba(255,42,42,.52));
-    }
-    @keyframes cubeFloat{
-      0%,100%{transform:rotateX(-20deg) rotateY(36deg) translateY(0)}
-      50%{transform:rotateX(-15deg) rotateY(50deg) translateY(-14px)}
-    }
-    .face{
-      position:absolute;width:138px;height:138px;border:1px solid rgba(255,42,42,.44);
-      background:linear-gradient(135deg,rgba(255,42,42,.36),rgba(90,0,0,.3)),rgba(255,255,255,.045);
-      box-shadow:inset 0 0 32px rgba(255,42,42,.15);
-    }
-    .front{transform:translateZ(69px)}.back{transform:rotateY(180deg) translateZ(69px)}
-    .right{transform:rotateY(90deg) translateZ(69px)}.left{transform:rotateY(-90deg) translateZ(69px)}
-    .top{transform:rotateX(90deg) translateZ(69px)}.bottom{transform:rotateX(-90deg) translateZ(69px)}
-
-    .mini-status{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
-    .mini-status div{padding:14px;border-radius:17px;border:1px solid rgba(255,42,42,.15);background:rgba(0,0,0,.24)}
-    .mini-status span{display:block;color:var(--muted2);font-size:10px;font-weight:900;text-transform:uppercase;margin-bottom:5px}
-    .mini-status strong{font-family:"Rajdhani",sans-serif;font-size:21px}
-
-    section{padding:104px 0;position:relative}
-    .section-head{max-width:850px;margin-bottom:46px}
-    .label{display:block;color:#ff6b6b;font-size:12px;font-weight:900;letter-spacing:2.2px;text-transform:uppercase;margin-bottom:14px}
-    .section-head h2,.cta h2{
-      font-family:"Rajdhani",sans-serif;font-size:clamp(42px,5vw,72px);line-height:.94;text-transform:uppercase;letter-spacing:-.8px;margin-bottom:17px;
-    }
-    .section-head p,.cta p{color:#c4c4cc;line-height:1.86;font-size:16px}
-
-    .glass,.progress-card,.mode-card,.rank-card,.feature-card,.info-card,.beta-card,.road-card,.chat-window,.cta,.cta-box{
-      position:relative;overflow:hidden;border:1px solid rgba(255,42,42,.17);border-radius:var(--radius);
-      background:linear-gradient(145deg,rgba(255,42,42,.07),transparent 42%),rgba(255,255,255,.038);
-      box-shadow:inset 0 1px 0 rgba(255,255,255,.048);backdrop-filter:blur(16px);transition:.25s ease;
-    }
-    .glass:before,.progress-card:before,.mode-card:before,.rank-card:before,.feature-card:before,.info-card:before,.beta-card:before,.road-card:before,.chat-window:before,.cta:before,.cta-box:before{
-      content:"";position:absolute;inset:0;background:radial-gradient(circle at 30% 0%,rgba(255,42,42,.15),transparent 40%);
-      opacity:0;pointer-events:none;transition:.25s ease;
-    }
-    .glass:hover,.progress-card:hover,.mode-card:hover,.rank-card:hover,.feature-card:hover,.info-card:hover,.beta-card:hover,.road-card:hover,.chat-window:hover,.cta-box:hover{
-      transform:translateY(-6px);border-color:rgba(255,42,42,.36);
-      box-shadow:0 0 44px rgba(255,42,42,.14),inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    .glass:hover:before,.progress-card:hover:before,.mode-card:hover:before,.rank-card:hover:before,.feature-card:hover:before,.info-card:hover:before,.beta-card:hover:before,.road-card:hover:before,.chat-window:hover:before,.cta:hover:before,.cta-box:hover:before{opacity:1}
-
-    .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,.55fr);gap:22px}
-    .glass{padding:34px}
-    .number{
-      width:max-content;padding:8px 11px;margin-bottom:24px;border-radius:999px;color:#ffd5d5;
-      border:1px solid rgba(255,42,42,.22);background:rgba(255,42,42,.08);font-size:11px;font-weight:900;
-    }
-    .glass h3{font-family:"Rajdhani",sans-serif;font-size:36px;text-transform:uppercase;margin-bottom:16px}
-    .glass p{color:#cacad2;line-height:1.9;margin-bottom:16px}
-    .brand-points{display:grid;gap:12px}
-    .brand-points div{padding:18px;border-radius:18px;background:rgba(0,0,0,.24);border:1px solid rgba(255,42,42,.13)}
-    .brand-points b{display:block;font-family:"Rajdhani",sans-serif;font-size:28px;text-transform:uppercase}
-    .brand-points span{color:var(--muted);line-height:1.6;font-size:14px}
-
-    .progress-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    .progress-card{min-height:150px;padding:20px}
-    .progress-card small{display:block;color:var(--muted2);font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:12px}
-    .progress-card h3{font-family:"Rajdhani",sans-serif;font-size:25px;text-transform:uppercase;line-height:1;margin-bottom:16px}
-
-    .tag{
-      display:inline-flex;width:max-content;max-width:100%;padding:7px 10px;border-radius:999px;
-      font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;
-    }
-    .tag.ready{color:#ffd4d4;border:1px solid rgba(255,42,42,.34);background:rgba(255,42,42,.11)}
-    .tag.progress{color:#e7e7ee;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.045)}
-    .tag.planned,.tag.soon{color:#d5d5de;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035)}
-
-    .modes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-    .mode-card{min-height:330px;padding:30px;display:flex;flex-direction:column;justify-content:space-between}
-    .mode-icon{
-      width:58px;height:58px;display:grid;place-items:center;border-radius:20px;margin-bottom:26px;
-      background:linear-gradient(145deg,rgba(255,42,42,.34),rgba(90,0,0,.32)),rgba(255,255,255,.04);
-      border:1px solid rgba(255,42,42,.32);box-shadow:0 0 30px rgba(255,42,42,.2);font-size:26px;
-    }
-    .mode-card h3{font-family:"Rajdhani",sans-serif;font-size:38px;text-transform:uppercase;margin:14px 0 12px}
-    .mode-card p{color:#aaaab4;line-height:1.75;font-size:14px;margin-bottom:22px}
-    .mode-line{height:2px;border-radius:999px;background:linear-gradient(90deg,var(--neon),transparent);opacity:.65;margin-top:26px}
-
-    .ranks-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
-    .rank-card{min-height:380px;padding:24px}
-    .rank-card small{display:block;color:var(--muted2);font-size:10px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:16px}
-    .rank-card h3{font-family:"Rajdhani",sans-serif;font-size:32px;text-transform:uppercase;margin-bottom:8px}
-    .price{font-family:"Rajdhani",sans-serif;font-size:29px;margin-bottom:14px;color:#fff}
-    .rank-card p{color:#aaaab4;font-size:13px;line-height:1.7;margin-bottom:16px}
-    .rank-bar{height:3px;border-radius:999px;opacity:.9;margin:16px 0}
-    .rank-chat{
-      padding:12px;border-radius:14px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.09);
-      color:#d9d9e0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.55;margin-bottom:14px;
-    }
-    .benefits{display:grid;gap:7px;color:#c0c0c8;font-size:12px;line-height:1.45}
-    .benefits span:before{content:"• ";color:#ff6b6b}
-
-    .iron .rank-bar{background:linear-gradient(90deg,#777,#d7d7d7)}
-    .crystal .rank-bar{background:linear-gradient(90deg,#9de8ff,#fff)}
-    .legend .rank-bar{background:linear-gradient(90deg,#c78b00,#ffd15c)}
-    .supreme .rank-bar{background:linear-gradient(90deg,#ffbd2a,#fff1a0)}
-    .nolaris .rank-bar{background:linear-gradient(90deg,#5a0000,#cc0000)}
-    .nolaris-plus .rank-bar{background:linear-gradient(90deg,#cc0000,#ff2a2a,#fff)}
-    .crystal{border-color:rgba(157,232,255,.22)}
-    .legend,.supreme{border-color:rgba(255,190,42,.22)}
-    .nolaris,.nolaris-plus{border-color:rgba(255,42,42,.36)}
-    .rank-iron{color:#cfcfcf}.rank-crystal{color:#9de8ff}.rank-legend{color:#ffd15c}.rank-supreme{color:#fff1a0}.rank-nolaris{color:#ff4a4a}.rank-plus{color:#ff2a2a}
-
-    .notice{
-      margin-top:22px;padding:17px 20px;border-radius:20px;border:1px solid rgba(255,42,42,.18);
-      background:rgba(255,42,42,.06);color:#cfcfd6;font-size:14px;line-height:1.7;
+    .nav-inner {
+      min-height: 66px;
+      padding: 0 16px 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
     }
 
-    .chat-window{padding:26px;background:linear-gradient(145deg,rgba(255,42,42,.075),transparent 42%),rgba(5,5,5,.58)}
-    .chat-top{display:flex;gap:8px;margin-bottom:18px}
-    .chat-top i{width:10px;height:10px;border-radius:999px;background:rgba(255,42,42,.65);box-shadow:0 0 14px rgba(255,42,42,.55)}
-    .chat-lines{display:grid;gap:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
-    .chat-line{padding:12px 14px;border-radius:14px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.08);color:#d7d7df;font-size:13px}
-    .chat-line b{font-weight:900}
-
-    .features-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
-    .feature-card{min-height:226px;padding:25px}
-    .feature-icon{
-      width:50px;height:50px;display:grid;place-items:center;margin-bottom:22px;border-radius:17px;
-      background:linear-gradient(145deg,rgba(255,42,42,.32),rgba(90,0,0,.32)),rgba(255,255,255,.04);
-      border:1px solid rgba(255,42,42,.31);box-shadow:0 0 30px rgba(255,42,42,.19);font-size:23px;
-    }
-    .feature-card h3{font-family:"Rajdhani",sans-serif;font-size:26px;line-height:1;text-transform:uppercase;margin-bottom:13px}
-    .feature-card p{color:#aaaab4;line-height:1.75;font-size:14px}
-
-    .info-grid{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:22px;align-items:stretch}
-    .info-card{padding:28px;display:grid;gap:12px}
-    .info-row{
-      display:grid;grid-template-columns:170px 1fr;gap:14px;align-items:center;padding:18px;border-radius:18px;
-      background:rgba(0,0,0,.24);border:1px solid rgba(255,42,42,.13);
-    }
-    .info-row span{color:var(--muted2);font-size:11px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase}
-    .info-row strong{color:var(--text);font-weight:800}
-
-    .beta-card{padding:34px;background:radial-gradient(circle at 80% 0%,rgba(255,42,42,.16),transparent 42%),rgba(255,255,255,.038)}
-    .beta-card h3{font-family:"Rajdhani",sans-serif;font-size:39px;text-transform:uppercase;margin-bottom:14px}
-    .beta-card p{color:#c4c4cc;line-height:1.86;margin-bottom:22px}
-    .meter-row{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;font-weight:800;margin-bottom:10px}
-    .meter-row b{color:var(--text)}
-    .meter{height:10px;border-radius:999px;border:1px solid rgba(255,42,42,.18);background:rgba(0,0,0,.34);overflow:hidden}
-    .meter div{height:100%;width:72%;border-radius:999px;background:linear-gradient(90deg,#7a0000,#ff2a2a);box-shadow:0 0 24px rgba(255,42,42,.45)}
-
-    .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;position:relative}
-    .road-card{min-height:220px;padding:26px}
-    .road-card span{
-      display:inline-flex;width:max-content;padding:8px 11px;margin-bottom:24px;border-radius:999px;color:#ffd4d4;
-      border:1px solid rgba(255,42,42,.22);background:rgba(255,42,42,.08);font-size:11px;font-weight:900;
-    }
-    .road-card h3{font-family:"Rajdhani",sans-serif;font-size:31px;text-transform:uppercase;margin-bottom:10px}
-    .road-card p{color:#aaaab4;line-height:1.7;font-size:14px}
-
-    .cta{
-      display:grid;grid-template-columns:minmax(0,1fr) 345px;gap:28px;align-items:center;padding:clamp(36px,6vw,68px);
-      border-radius:38px;background:
-      radial-gradient(circle at 20% 0%,rgba(255,42,42,.3),transparent 43%),
-      radial-gradient(circle at 100% 70%,rgba(90,0,0,.36),transparent 45%),
-      linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.026));
-      box-shadow:var(--glow2),inset 0 1px 0 rgba(255,255,255,.06);
-    }
-    .cta-box{padding:27px;background:rgba(0,0,0,.27)}
-    .cta-box small{color:var(--muted2);font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:1.2px}
-    .cta-box strong{display:block;font-family:"Rajdhani",sans-serif;font-size:39px;margin:8px 0 18px}
-    .cta-box .btn{width:100%}
-
-    footer{padding:38px 0 48px;border-top:1px solid rgba(255,42,42,.13);background:rgba(0,0,0,.22)}
-    .footer-inner{display:flex;justify-content:space-between;align-items:center;gap:18px;color:var(--muted2);font-size:13px}
-    .footer-inner strong{display:block;color:var(--text);font-family:"Rajdhani",sans-serif;font-size:24px}
-
-    .toast{
-      position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(18px);opacity:0;z-index:300;
-      padding:13px 16px;border-radius:999px;background:rgba(9,8,10,.94);border:1px solid rgba(255,42,42,.3);
-      box-shadow:0 0 34px rgba(255,42,42,.18);color:var(--text);font-size:13px;font-weight:900;pointer-events:none;
-      transition:.25s ease;backdrop-filter:blur(12px);
-    }
-    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
-    .reveal{opacity:0;transform:translateY(30px);transition:opacity .78s ease,transform .78s ease}
-    .reveal.visible{opacity:1;transform:translateY(0)}
-
-    @media(max-width:1120px){
-      .hero-grid,.split,.info-grid,.cta{grid-template-columns:1fr}
-      .progress-grid{grid-template-columns:repeat(3,1fr)}
-      .modes-grid,.features-grid,.timeline{grid-template-columns:repeat(2,1fr)}
-      .ranks-grid{grid-template-columns:repeat(3,1fr)}
-      .hero-panel{max-width:680px}
-      .cta-box{max-width:430px}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
     }
 
-    @media(max-width:860px){
-      .nav{top:10px;border-radius:24px}
-      .nav-inner{min-height:64px}
-      .menu-btn{display:grid;place-items:center}
-      .ip-pill{display:none}
-      .nav-links{
-        position:absolute;top:calc(100% + 10px);left:0;right:0;display:none;flex-direction:column;align-items:stretch;
-        padding:12px;border-radius:22px;border:1px solid rgba(255,42,42,.18);background:rgba(8,7,9,.98);backdrop-filter:blur(18px);
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      background: linear-gradient(145deg, rgba(255, 42, 42, 0.32), rgba(90, 0, 0, 0.46));
+      border: 1px solid rgba(255, 42, 42, 0.34);
+      box-shadow: 0 0 24px rgba(255, 42, 42, 0.18);
+    }
+
+    .brand strong {
+      display: block;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted2);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-links a {
+      color: #d9d9df;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 10px 10px;
+      border-radius: 999px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: white;
+      background: rgba(255, 42, 42, 0.1);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .ip-pill,
+    .menu-btn {
+      border: 1px solid rgba(255, 42, 42, 0.26);
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .ip-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .ip-pill:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 42, 42, 0.58);
+      background: rgba(255, 42, 42, 0.08);
+    }
+
+    .menu-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+    }
+
+    .pulse,
+    .ip-pill i,
+    .chip i,
+    .live i {
+      width: 8px;
+      height: 8px;
+      display: inline-block;
+      border-radius: 999px;
+      background: var(--neon);
+      box-shadow: 0 0 12px var(--neon);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.62;
+        transform: scale(0.9);
       }
-      .nav.open .nav-links{display:flex}
-      .nav-links a{padding:14px}
-      .hero-metrics,.mini-status,.progress-grid{grid-template-columns:1fr}
-      .footer-inner{flex-direction:column;align-items:flex-start}
+
+      50% {
+        opacity: 1;
+        transform: scale(1.14);
+      }
     }
 
-    @media(max-width:600px){
-      .container{width:min(100% - 26px,var(--max))}
-      .nav{width:min(100% - 20px,var(--max))}
-      .brand strong{font-size:17px}
-      .brand span{font-size:10px}
-      .hero{padding:124px 0 66px}
-      h1{letter-spacing:-1px}
-      .hero-actions{align-items:stretch}
-      .btn{width:100%}
-      .modes-grid,.features-grid,.ranks-grid,.timeline{grid-template-columns:1fr}
-      .glass,.progress-card,.mode-card,.rank-card,.feature-card,.info-card,.beta-card,.road-card,.cta-box,.chat-window{padding:23px}
-      .core-screen{min-height:255px}
-      .info-row{grid-template-columns:1fr;gap:6px}
-      .cta-box strong{font-size:32px}
+    .hero {
+      min-height: 100vh;
+      padding: 170px 0 88px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 240px;
+      background: linear-gradient(0deg, #050505 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .speed-lines {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.58;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(255, 42, 42, 0.06) 34%, transparent 62%),
+        linear-gradient(60deg, transparent 0%, rgba(255, 255, 255, 0.025) 50%, transparent 72%);
+      animation: moveLines 11s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+
+    @keyframes moveLines {
+      from {
+        transform: translate3d(-16px, 0, 0);
+      }
+
+      to {
+        transform: translate3d(16px, 0, 0);
+      }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(330px, 0.76fr);
+      align-items: center;
+      gap: 52px;
+    }
+
+    .chip {
+      width: max-content;
+      max-width: 100%;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      margin-bottom: 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 42, 42, 0.28);
+      background: rgba(255, 42, 42, 0.07);
+      color: #ffd4d4;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1.1px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: clamp(62px, 10vw, 128px);
+      line-height: 0.84;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      margin-bottom: 26px;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--text);
+      text-shadow: 0 0 24px rgba(255, 42, 42, 0.24);
+    }
+
+    h1 strong {
+      display: block;
+      font-weight: 700;
+      background: linear-gradient(90deg, #fff 0%, #ffb0b0 18%, #ff2a2a 52%, #710000 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text {
+      max-width: 735px;
+      color: #cacad2;
+      font-size: clamp(16px, 2vw, 20px);
+      line-height: 1.82;
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 34px;
+    }
+
+    .btn {
+      min-height: 54px;
+      padding: 0 24px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.3px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.24s ease, background 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+      transform: translateX(-120%);
+      transition: transform 0.45s ease;
+    }
+
+    .btn:hover::before {
+      transform: translateX(120%);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff2a2a, #8a0000);
+      box-shadow: 0 0 26px rgba(255, 42, 42, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 38px rgba(255, 42, 42, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.045);
+      border-color: rgba(255, 42, 42, 0.25);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 42, 42, 0.52);
+      background: rgba(255, 42, 42, 0.09);
+    }
+
+    .hero-metrics {
+      max-width: 740px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.038);
+      border: 1px solid rgba(255, 42, 42, 0.16);
+    }
+
+    .metric small {
+      display: block;
+      color: var(--muted2);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .metric b {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 27px;
+    }
+
+    .hero-panel {
+      position: relative;
+      padding: 26px;
+      border-radius: 34px;
+      background:
+        linear-gradient(145deg, rgba(255, 42, 42, 0.09), transparent 45%),
+        rgba(12, 10, 13, 0.82);
+      border: 1px solid rgba(255, 42, 42, 0.25);
+      box-shadow: 0 0 38px rgba(255, 42, 42, 0.13);
+      overflow: hidden;
+    }
+
+    .panel-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .panel-top span {
+      display: block;
+      color: var(--muted2);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .panel-top h2 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 34px;
+    }
+
+    .live {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 42, 42, 0.3);
+      background: rgba(255, 42, 42, 0.08);
+      color: #ffd8d8;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .core-screen {
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+      border-radius: 28px;
+      border: 1px solid rgba(255, 42, 42, 0.18);
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255, 42, 42, 0.22), transparent 34%),
+        rgba(0, 0, 0, 0.28);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .core-logo {
+      width: 126px;
+      height: 126px;
+      display: grid;
+      place-items: center;
+      border-radius: 30px;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 72px;
+      font-weight: 700;
+      background: linear-gradient(145deg, rgba(255, 42, 42, 0.32), rgba(90, 0, 0, 0.36));
+      border: 1px solid rgba(255, 42, 42, 0.34);
+      box-shadow: 0 0 36px rgba(255, 42, 42, 0.26);
+      animation: coreFloat 4.8s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes coreFloat {
+      0%, 100% {
+        transform: translate3d(0, 0, 0);
+      }
+
+      50% {
+        transform: translate3d(0, -12px, 0);
+      }
+    }
+
+    .orbit {
+      position: absolute;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 42, 42, 0.16);
+      animation: spin 16s linear infinite;
+      will-change: transform;
+    }
+
+    .orbit.one {
+      width: 230px;
+      height: 230px;
+    }
+
+    .orbit.two {
+      width: 168px;
+      height: 168px;
+      animation-duration: 11s;
+      animation-direction: reverse;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .mini-status {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .mini-status div {
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 42, 42, 0.14);
+      background: rgba(0, 0, 0, 0.24);
+    }
+
+    .mini-status span {
+      display: block;
+      color: var(--muted2);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .mini-status strong {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 21px;
+    }
+
+    section {
+      padding: 98px 0;
+      position: relative;
+    }
+
+    .section-head {
+      max-width: 850px;
+      margin-bottom: 42px;
+    }
+
+    .label {
+      display: block;
+      color: #ff6b6b;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2,
+    .cta h2 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: clamp(40px, 5vw, 70px);
+      line-height: 0.96;
+      text-transform: uppercase;
+      letter-spacing: -0.8px;
+      margin-bottom: 17px;
+    }
+
+    .section-head p,
+    .cta p {
+      color: #c4c4cc;
+      line-height: 1.86;
+      font-size: 16px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 42, 42, 0.16);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.038);
+      transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 42, 42, 0.34);
+      background: rgba(255, 42, 42, 0.055);
+      box-shadow: 0 0 30px rgba(255, 42, 42, 0.12);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.55fr);
+      gap: 22px;
+    }
+
+    .glass {
+      padding: 32px;
+    }
+
+    .number {
+      width: max-content;
+      padding: 8px 11px;
+      margin-bottom: 22px;
+      border-radius: 999px;
+      color: #ffd5d5;
+      border: 1px solid rgba(255, 42, 42, 0.22);
+      background: rgba(255, 42, 42, 0.08);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .glass h3 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 34px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .glass p {
+      color: #cacad2;
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+
+    .brand-points {
+      display: grid;
+      gap: 12px;
+    }
+
+    .brand-points div {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.24);
+      border: 1px solid rgba(255, 42, 42, 0.12);
+    }
+
+    .brand-points b {
+      display: block;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 27px;
+      text-transform: uppercase;
+    }
+
+    .brand-points span {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .progress-card {
+      min-height: 146px;
+      padding: 20px;
+    }
+
+    .progress-card small {
+      display: block;
+      color: var(--muted2);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .progress-card h3 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 25px;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: max-content;
+      max-width: 100%;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .tag.ready {
+      color: #ffd4d4;
+      border: 1px solid rgba(255, 42, 42, 0.34);
+      background: rgba(255, 42, 42, 0.11);
+    }
+
+    .tag.progress {
+      color: #e7e7ee;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .tag.planned,
+    .tag.soon {
+      color: #d5d5de;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .mode-card {
+      min-height: 310px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .mode-icon {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 19px;
+      margin-bottom: 24px;
+      background: linear-gradient(145deg, rgba(255, 42, 42, 0.28), rgba(90, 0, 0, 0.28));
+      border: 1px solid rgba(255, 42, 42, 0.28);
+      font-size: 25px;
+    }
+
+    .mode-card h3 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 37px;
+      text-transform: uppercase;
+      margin: 14px 0 12px;
+    }
+
+    .mode-card p {
+      color: #aaaab4;
+      line-height: 1.75;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .mode-line {
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--neon), transparent);
+      opacity: 0.62;
+      margin-top: 24px;
+    }
+
+    .ranks-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .rank-card {
+      min-height: 330px;
+      padding: 24px;
+    }
+
+    .rank-card small {
+      display: block;
+      color: var(--muted2);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .rank-card h3 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 34px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 29px;
+      margin-bottom: 14px;
+    }
+
+    .rank-chat {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      color: #d9d9e0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .rank-card p {
+      color: #aaaab4;
+      font-size: 13px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .benefits {
+      display: grid;
+      gap: 7px;
+      color: #c0c0c8;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .benefits span::before {
+      content: "• ";
+      color: #ff6b6b;
+    }
+
+    .rank-bar {
+      height: 3px;
+      border-radius: 999px;
+      margin-top: 16px;
+    }
+
+    .iron .rank-bar { background: linear-gradient(90deg, #777, #d7d7d7); }
+    .crystal .rank-bar { background: linear-gradient(90deg, #9de8ff, #fff); }
+    .legend .rank-bar { background: linear-gradient(90deg, #c78b00, #ffd15c); }
+    .supreme .rank-bar { background: linear-gradient(90deg, #ffbd2a, #fff1a0); }
+    .nolaris .rank-bar { background: linear-gradient(90deg, #5a0000, #cc0000); }
+    .nolaris-plus .rank-bar { background: linear-gradient(90deg, #cc0000, #ff2a2a, #fff); }
+
+    .rank-iron { color: #cfcfcf; }
+    .rank-crystal { color: #9de8ff; }
+    .rank-legend { color: #ffd15c; }
+    .rank-supreme { color: #fff1a0; }
+    .rank-nolaris { color: #ff4a4a; }
+    .rank-plus { color: #ff2a2a; }
+
+    .notice {
+      margin-top: 22px;
+      padding: 17px 20px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 42, 42, 0.18);
+      background: rgba(255, 42, 42, 0.06);
+      color: #cfcfd6;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .chat-window {
+      padding: 26px;
+      background: rgba(5, 5, 5, 0.58);
+      border: 1px solid rgba(255, 42, 42, 0.18);
+      border-radius: var(--radius);
+    }
+
+    .chat-top {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .chat-top i {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 42, 42, 0.65);
+    }
+
+    .chat-lines {
+      display: grid;
+      gap: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .chat-line {
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #d7d7df;
+      font-size: 13px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      min-height: 220px;
+      padding: 25px;
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      border-radius: 17px;
+      background: linear-gradient(145deg, rgba(255, 42, 42, 0.28), rgba(90, 0, 0, 0.28));
+      border: 1px solid rgba(255, 42, 42, 0.28);
+      font-size: 23px;
+    }
+
+    .feature-card h3 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 26px;
+      line-height: 1;
+      text-transform: uppercase;
+      margin-bottom: 13px;
+    }
+
+    .feature-card p {
+      color: #aaaab4;
+      line-height: 1.75;
+      font-size: 14px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 380px;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .info-card {
+      padding: 28px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .info-row {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(0, 0, 0, 0.24);
+      border: 1px solid rgba(255, 42, 42, 0.12);
+    }
+
+    .info-row span {
+      color: var(--muted2);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .info-row strong {
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .beta-card {
+      padding: 34px;
+    }
+
+    .beta-card h3 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 38px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .beta-card p {
+      color: #c4c4cc;
+      line-height: 1.86;
+      margin-bottom: 22px;
+    }
+
+    .meter-row {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .meter-row b {
+      color: var(--text);
+    }
+
+    .meter {
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 42, 42, 0.18);
+      background: rgba(0, 0, 0, 0.34);
+      overflow: hidden;
+    }
+
+    .meter div {
+      height: 100%;
+      width: 72%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #7a0000, #ff2a2a);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+
+    .road-card {
+      min-height: 214px;
+      padding: 25px;
+    }
+
+    .road-card span {
+      display: inline-flex;
+      width: max-content;
+      padding: 8px 11px;
+      margin-bottom: 22px;
+      border-radius: 999px;
+      color: #ffd4d4;
+      border: 1px solid rgba(255, 42, 42, 0.22);
+      background: rgba(255, 42, 42, 0.08);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .road-card h3 {
+      font-family: "Rajdhani", sans-serif;
+      font-size: 30px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .road-card p {
+      color: #aaaab4;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .cta {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 345px;
+      gap: 28px;
+      align-items: center;
+      padding: clamp(34px, 6vw, 64px);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255, 42, 42, 0.22), transparent 43%),
+        rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 42, 42, 0.2);
+      box-shadow: 0 0 40px rgba(255, 42, 42, 0.14);
+    }
+
+    .cta-box {
+      padding: 26px;
+      background: rgba(0, 0, 0, 0.26);
+      border: 1px solid rgba(255, 42, 42, 0.16);
+      border-radius: var(--radius);
+    }
+
+    .cta-box small {
+      color: var(--muted2);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    .cta-box strong {
+      display: block;
+      font-family: "Rajdhani", sans-serif;
+      font-size: 38px;
+      margin: 8px 0 18px;
+    }
+
+    .cta-box .btn {
+      width: 100%;
+    }
+
+    footer {
+      padding: 38px 0 48px;
+      border-top: 1px solid rgba(255, 42, 42, 0.13);
+      background: rgba(0, 0, 0, 0.22);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted2);
+      font-size: 13px;
+    }
+
+    .footer-inner strong {
+      display: block;
+      color: var(--text);
+      font-family: "Rajdhani", sans-serif;
+      font-size: 24px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(18px);
+      opacity: 0;
+      z-index: 300;
+      padding: 13px 16px;
+      border-radius: 999px;
+      background: rgba(9, 8, 10, 0.94);
+      border: 1px solid rgba(255, 42, 42, 0.3);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 900;
+      pointer-events: none;
+      transition: 0.25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+      will-change: opacity, transform;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .split,
+      .info-grid,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .modes-grid,
+      .features-grid,
+      .timeline {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ranks-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-panel {
+        max-width: 680px;
+      }
+
+      .cta-box {
+        max-width: 430px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .mouse-glow {
+        display: none;
+      }
+
+      .ambient {
+        filter: blur(55px);
+        opacity: 0.38;
+      }
+
+      .nav {
+        top: 10px;
+        border-radius: 24px;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-inner {
+        min-height: 64px;
+      }
+
+      .menu-btn {
+        display: grid;
+        place-items: center;
+      }
+
+      .ip-pill {
+        display: none;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+        border-radius: 22px;
+        border: 1px solid rgba(255, 42, 42, 0.18);
+        background: rgba(8, 7, 9, 0.98);
+      }
+
+      .nav.open .nav-links {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 14px;
+      }
+
+      .hero-metrics,
+      .mini-status,
+      .progress-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: min(100% - 26px, var(--max));
+      }
+
+      .nav {
+        width: min(100% - 20px, var(--max));
+      }
+
+      .brand strong {
+        font-size: 17px;
+      }
+
+      .brand span {
+        font-size: 10px;
+      }
+
+      .hero {
+        padding: 122px 0 64px;
+      }
+
+      h1 {
+        letter-spacing: -1px;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .modes-grid,
+      .features-grid,
+      .ranks-grid,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .glass,
+      .progress-card,
+      .mode-card,
+      .rank-card,
+      .feature-card,
+      .info-card,
+      .beta-card,
+      .road-card,
+      .chat-window,
+      .cta-box {
+        padding: 22px;
+      }
+
+      .core-screen {
+        min-height: 245px;
+      }
+
+      .info-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .cta-box strong {
+        font-size: 32px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="noise"></div>
+  <canvas id="particlesCanvas"></canvas>
   <div class="grid-bg"></div>
   <div class="mouse-glow" id="mouseGlow"></div>
   <div class="ambient one"></div>
   <div class="ambient two"></div>
-  <div class="ambient three"></div>
-  <div class="particles" id="particles"></div>
 
   <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#home" class="brand">
+      <a href="#inicio" class="brand">
         <div class="brand-logo">N</div>
         <div>
           <strong>Nolaris Network</strong>
-          <span>Beta Phase</span>
+          <span>Fase Beta</span>
         </div>
       </a>
 
       <div class="nav-links" id="navLinks">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#modes">Modes</a>
-        <a href="#ranks">Ranks</a>
-        <a href="#progress">Progress</a>
-        <a href="#status">Status</a>
-        <a href="#play">Play</a>
+        <a href="#inicio">Inicio</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#modalidades">Modalidades</a>
+        <a href="#rangos">Rangos</a>
+        <a href="#progreso">Progreso</a>
+        <a href="#estado">Estado</a>
+        <a href="#jugar">Jugar</a>
       </div>
 
       <div class="nav-actions">
         <button class="ip-pill" data-copy="nolaris.live"><i></i>nolaris.live</button>
-        <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
       </div>
     </div>
   </nav>
 
-  <header class="hero" id="home">
+  <header class="hero" id="inicio">
     <div class="speed-lines"></div>
 
     <div class="container hero-grid">
       <div class="hero-content reveal">
-        <div class="chip"><i></i>Beta Pública · 1.7+ Support · Active Development</div>
+        <div class="chip"><i></i>Beta Pública · Soporte 1.7+ · Desarrollo Activo</div>
 
         <h1>
           <span>Nolaris</span>
@@ -521,176 +1434,168 @@
         </h1>
 
         <p class="hero-text">
-          A new Minecraft network built with style, stability and ambition.
-          Nolaris Network is currently in beta, focused on creating a polished lobby experience,
-          a strong visual identity and future game modes designed for long-term growth.
+          Una nueva network de Minecraft construida con estilo, estabilidad y ambición.
+          Nolaris Network está en fase beta, enfocada en crear una experiencia de lobby pulida,
+          una identidad visual fuerte y futuras modalidades preparadas para crecer a largo plazo.
         </p>
 
         <div class="hero-actions">
-          <button class="btn btn-primary" data-copy="nolaris.live">Play Now</button>
-          <a class="btn btn-secondary" href="#modes">Explore Modes</a>
-          <a class="btn btn-secondary" href="#ranks">View Ranks</a>
+          <button class="btn btn-primary" data-copy="nolaris.live">Jugar ahora</button>
+          <a class="btn btn-secondary" href="#modalidades">Explorar modalidades</a>
+          <a class="btn btn-secondary" href="#rangos">Ver rangos</a>
         </div>
 
         <div class="hero-metrics">
-          <div class="metric"><small>Official IP</small><b>nolaris.live</b></div>
-          <div class="metric"><small>Current Phase</small><b>Beta</b></div>
-          <div class="metric"><small>Version Support</small><b>1.7+</b></div>
+          <div class="metric"><small>IP oficial</small><b>nolaris.live</b></div>
+          <div class="metric"><small>Fase actual</small><b>Beta</b></div>
+          <div class="metric"><small>Versiones</small><b>1.7+</b></div>
         </div>
       </div>
 
       <aside class="hero-panel reveal">
         <div class="panel-top">
           <div>
-            <span>Network Dashboard</span>
+            <span>Panel de Network</span>
             <h2>Nolaris Core</h2>
           </div>
           <div class="live"><i></i>Online</div>
         </div>
 
         <div class="core-screen">
-          <div class="scan"></div>
-          <div class="ring one"></div>
-          <div class="ring two"></div>
-          <div class="ring three"></div>
-
-          <div class="cube">
-            <div class="face front"></div>
-            <div class="face back"></div>
-            <div class="face right"></div>
-            <div class="face left"></div>
-            <div class="face top"></div>
-            <div class="face bottom"></div>
-          </div>
+          <div class="orbit one"></div>
+          <div class="orbit two"></div>
+          <div class="core-logo">N</div>
         </div>
 
         <div class="mini-status">
-          <div><span>Lobby</span><strong>Ready</strong></div>
-          <div><span>Auth</span><strong>Ready</strong></div>
-          <div><span>UI</span><strong>Ready</strong></div>
-          <div><span>Modes</span><strong>Soon</strong></div>
+          <div><span>Lobby</span><strong>Listo</strong></div>
+          <div><span>Auth</span><strong>Listo</strong></div>
+          <div><span>UI</span><strong>Listo</strong></div>
+          <div><span>Modos</span><strong>Pronto</strong></div>
         </div>
       </aside>
     </div>
   </header>
 
   <main>
-    <section id="about">
+    <section id="sobre">
       <div class="container">
         <div class="section-head reveal">
-          <span class="label">About Nolaris</span>
-          <h2>A polished network built from the beginning.</h2>
+          <span class="label">Sobre Nolaris</span>
+          <h2>Una network pulida desde el comienzo.</h2>
           <p>
-            Nolaris Network is a new Minecraft network currently in beta, focused on building
-            a clean, polished and professional player experience.
+            Nolaris Network es una nueva network de Minecraft en fase beta, enfocada en construir
+            una experiencia limpia, estable y profesional para los jugadores.
           </p>
         </div>
 
         <div class="split">
-          <article class="glass reveal">
+          <article class="card glass reveal">
             <div class="number">01</div>
-            <h3>Designed with attention to detail</h3>
+            <h3>Diseñada con atención al detalle</h3>
             <p>
-              From the lobby to future game modes, every part of the network is being designed
-              with attention to detail, stability and visual identity.
+              Desde el lobby hasta las futuras modalidades, cada parte de la network está siendo
+              diseñada con atención al detalle, estabilidad e identidad visual.
             </p>
             <p>
-              The goal is to create a network that feels organized, premium and enjoyable
-              from the first login.
+              El objetivo es crear una network que se sienta organizada, premium y agradable
+              desde el primer ingreso.
             </p>
           </article>
 
-          <article class="glass reveal">
+          <article class="card glass reveal">
             <div class="number">02</div>
-            <h3>Visual direction</h3>
+            <h3>Dirección visual</h3>
             <div class="brand-points">
-              <div><b>Dark</b><span>Deep black, technical gray and red neon highlights.</span></div>
-              <div><b>Premium</b><span>Clean glass panels, soft glow and polished interface details.</span></div>
-              <div><b>Professional</b><span>A serious identity designed to grow with its community.</span></div>
+              <div><b>Oscura</b><span>Negro profundo, gris técnico y detalles rojos neón.</span></div>
+              <div><b>Premium</b><span>Paneles limpios, glow suave y detalles visuales pulidos.</span></div>
+              <div><b>Profesional</b><span>Una identidad seria diseñada para crecer con la comunidad.</span></div>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="progress">
+    <section id="progreso">
       <div class="container">
         <div class="section-head reveal">
-          <span class="label">Current Progress</span>
-          <h2>A professional beta dashboard.</h2>
+          <span class="label">Progreso actual</span>
+          <h2>Un dashboard beta profesional.</h2>
           <p>
-            Nolaris already has a functional foundation, while future systems and game modes
-            continue moving through active beta development.
+            Nolaris ya cuenta con una base funcional mientras futuros sistemas y modalidades
+            avanzan dentro del desarrollo beta activo.
           </p>
         </div>
 
         <div class="progress-grid">
-          <article class="progress-card reveal"><small>Experience</small><h3>Main Lobby</h3><span class="tag ready">Ready</span></article>
-          <article class="progress-card reveal"><small>World</small><h3>Spawn</h3><span class="tag ready">Ready</span></article>
-          <article class="progress-card reveal"><small>Items</small><h3>Hotbar Items</h3><span class="tag ready">Ready</span></article>
-          <article class="progress-card reveal"><small>Interface</small><h3>Scoreboard</h3><span class="tag ready">Ready</span></article>
-          <article class="progress-card reveal"><small>UI</small><h3>Bossbar</h3><span class="tag ready">Ready</span></article>
-          <article class="progress-card reveal"><small>UI</small><h3>Actionbar</h3><span class="tag ready">Ready</span></article>
-          <article class="progress-card reveal"><small>Interaction</small><h3>NPCs</h3><span class="tag progress">In Progress</span></article>
-          <article class="progress-card reveal"><small>Navigation</small><h3>Game Menus</h3><span class="tag progress">In Progress</span></article>
-          <article class="progress-card reveal"><small>Identity</small><h3>Ranks</h3><span class="tag planned">Planned</span></article>
-          <article class="progress-card reveal"><small>Mode</small><h3>Practice</h3><span class="tag planned">Planned</span></article>
-          <article class="progress-card reveal"><small>Mode</small><h3>SkyWars</h3><span class="tag soon">Coming Soon</span></article>
-          <article class="progress-card reveal"><small>Mode</small><h3>KitMap</h3><span class="tag planned">Planned</span></article>
-          <article class="progress-card reveal"><small>Mode</small><h3>BedWars</h3><span class="tag planned">Planned</span></article>
+          <article class="card progress-card reveal"><small>Experiencia</small><h3>Lobby principal</h3><span class="tag ready">Listo</span></article>
+          <article class="card progress-card reveal"><small>Mundo</small><h3>Spawn</h3><span class="tag ready">Listo</span></article>
+          <article class="card progress-card reveal"><small>Items</small><h3>Items del hotbar</h3><span class="tag ready">Listo</span></article>
+          <article class="card progress-card reveal"><small>Interfaz</small><h3>Scoreboard</h3><span class="tag ready">Listo</span></article>
+          <article class="card progress-card reveal"><small>UI</small><h3>Bossbar</h3><span class="tag ready">Listo</span></article>
+          <article class="card progress-card reveal"><small>UI</small><h3>Actionbar</h3><span class="tag ready">Listo</span></article>
+          <article class="card progress-card reveal"><small>Interacción</small><h3>NPCs</h3><span class="tag progress">En progreso</span></article>
+          <article class="card progress-card reveal"><small>Navegación</small><h3>Menús de juego</h3><span class="tag progress">En progreso</span></article>
+          <article class="card progress-card reveal"><small>Identidad</small><h3>Rangos</h3><span class="tag planned">Planeado</span></article>
+          <article class="card progress-card reveal"><small>Modalidad</small><h3>Practice</h3><span class="tag planned">Planeado</span></article>
+          <article class="card progress-card reveal"><small>Modalidad</small><h3>SkyWars</h3><span class="tag soon">Próximamente</span></article>
+          <article class="card progress-card reveal"><small>Modalidad</small><h3>KitMap</h3><span class="tag planned">Planeado</span></article>
+          <article class="card progress-card reveal"><small>Modalidad</small><h3>BedWars</h3><span class="tag planned">Planeado</span></article>
         </div>
       </div>
     </section>
 
-    <section id="modes">
+    <section id="modalidades">
       <div class="container">
         <div class="section-head reveal">
-          <span class="label">Game Modes</span>
-          <h2>Future modes with a premium presentation.</h2>
-          <p>Practice, SkyWars, KitMap and BedWars are planned as part of the network expansion.</p>
+          <span class="label">Modalidades</span>
+          <h2>Futuras modalidades con presentación premium.</h2>
+          <p>
+            Practice, SkyWars, KitMap y BedWars forman parte de la expansión planeada de la network.
+          </p>
         </div>
 
         <div class="modes-grid">
-          <article class="mode-card reveal">
+          <article class="card mode-card reveal">
             <div>
               <div class="mode-icon">⚔</div>
-              <span class="tag planned">Beta Planned</span>
+              <span class="tag planned">Beta planeada</span>
               <h3>Practice</h3>
-              <p>Fast-paced PvP duels, balanced kits and optimized arenas.</p>
-              <button class="btn btn-secondary">Coming Soon</button>
+              <p>Duels PvP rápidos, kits balanceados y arenas optimizadas.</p>
+              <button class="btn btn-secondary">Próximamente</button>
             </div>
             <div class="mode-line"></div>
           </article>
 
-          <article class="mode-card reveal">
+          <article class="card mode-card reveal">
             <div>
               <div class="mode-icon">☁</div>
-              <span class="tag soon">Coming Soon</span>
+              <span class="tag soon">Próximamente</span>
               <h3>SkyWars</h3>
-              <p>Classic sky island battles with quick matches and competitive gameplay.</p>
-              <button class="btn btn-secondary">Coming Soon</button>
+              <p>Batallas clásicas en islas con partidas rápidas y jugabilidad competitiva.</p>
+              <button class="btn btn-secondary">Próximamente</button>
             </div>
             <div class="mode-line"></div>
           </article>
 
-          <article class="mode-card reveal">
+          <article class="card mode-card reveal">
             <div>
               <div class="mode-icon">◆</div>
-              <span class="tag planned">Planned</span>
+              <span class="tag planned">Planeado</span>
               <h3>KitMap</h3>
-              <p>PvP-focused progression, kits, events and competitive combat.</p>
-              <button class="btn btn-secondary">Coming Soon</button>
+              <p>Progresión enfocada en PvP, kits, eventos y combate competitivo.</p>
+              <button class="btn btn-secondary">Próximamente</button>
             </div>
             <div class="mode-line"></div>
           </article>
 
-          <article class="mode-card reveal">
+          <article class="card mode-card reveal">
             <div>
               <div class="mode-icon">▣</div>
-              <span class="tag planned">Planned</span>
+              <span class="tag planned">Planeado</span>
               <h3>BedWars</h3>
-              <p>Team-based gameplay, generators, upgrades and strategic battles.</p>
-              <button class="btn btn-secondary">Coming Soon</button>
+              <p>Jugabilidad por equipos, generadores, mejoras y batallas estratégicas.</p>
+              <button class="btn btn-secondary">Próximamente</button>
             </div>
             <div class="mode-line"></div>
           </article>
@@ -698,80 +1603,81 @@
       </div>
     </section>
 
-    <section id="ranks">
+    <section id="rangos">
       <div class="container">
         <div class="section-head reveal">
-          <span class="label">Ranks</span>
-          <h2>Supporter ranks with premium visual identity.</h2>
+          <span class="label">Rangos</span>
+          <h2>Rangos supporter con identidad visual premium.</h2>
           <p>
-            Supporter ranks are planned as part of the Nolaris identity. Benefits are planned examples and may be adjusted before final release.
+            Los rangos supporter están planeados como parte de la identidad de Nolaris.
+            Los beneficios son ejemplos planeados y pueden ajustarse antes del lanzamiento final.
           </p>
         </div>
 
         <div class="ranks-grid">
-          <article class="rank-card iron reveal">
-            <small>Rank 01</small>
+          <article class="card rank-card iron reveal">
+            <small>Rango 01</small>
             <h3>Iron</h3>
             <div class="price">$2.99</div>
             <div class="rank-chat"><span class="rank-iron">[Iron]</span> Player: Hello!</div>
-            <p>Planned visual supporter identity.</p>
-            <div class="benefits"><span>Rank prefix</span><span>Basic lobby cosmetics</span><span>Supporter recognition</span><span>Future cosmetic access</span></div>
+            <p>Identidad visual supporter planeada.</p>
+            <div class="benefits"><span>Prefix de rango</span><span>Cosméticos básicos de lobby</span><span>Reconocimiento supporter</span><span>Acceso cosmético futuro</span></div>
             <div class="rank-bar"></div>
           </article>
 
-          <article class="rank-card crystal reveal">
-            <small>Rank 02</small>
+          <article class="card rank-card crystal reveal">
+            <small>Rango 02</small>
             <h3>Crystal</h3>
             <div class="price">$4.99</div>
             <div class="rank-chat"><span class="rank-crystal">[Crystal]</span> Player: Hello!</div>
-            <p>Enhanced supporter recognition.</p>
-            <div class="benefits"><span>Rank prefix</span><span>Enhanced lobby cosmetics</span><span>Chat color style</span><span>Supporter recognition</span><span>Future cosmetic access</span></div>
+            <p>Reconocimiento supporter mejorado.</p>
+            <div class="benefits"><span>Prefix de rango</span><span>Cosméticos de lobby mejorados</span><span>Estilo de color en chat</span><span>Reconocimiento supporter</span></div>
             <div class="rank-bar"></div>
           </article>
 
-          <article class="rank-card legend reveal">
-            <small>Rank 03</small>
+          <article class="card rank-card legend reveal">
+            <small>Rango 03</small>
             <h3>Legend</h3>
             <div class="price">$7.99</div>
             <div class="rank-chat"><span class="rank-legend">[Legend]</span> Player: Hello!</div>
-            <p>Premium rank style for long-term supporters.</p>
-            <div class="benefits"><span>Rank prefix</span><span>Premium chat style</span><span>Advanced lobby cosmetics</span><span>Join message style</span><span>Future cosmetic benefits</span></div>
+            <p>Estilo premium para supporters de largo plazo.</p>
+            <div class="benefits"><span>Prefix de rango</span><span>Estilo premium de chat</span><span>Cosméticos avanzados de lobby</span><span>Beneficios cosméticos futuros</span></div>
             <div class="rank-bar"></div>
           </article>
 
-          <article class="rank-card supreme reveal">
-            <small>Rank 04</small>
+          <article class="card rank-card supreme reveal">
+            <small>Rango 04</small>
             <h3>Supreme</h3>
             <div class="price">$11.99</div>
             <div class="rank-chat"><span class="rank-supreme">[Supreme]</span> Player: Hello!</div>
-            <p>High-tier visual identity.</p>
-            <div class="benefits"><span>Rank prefix</span><span>Premium lobby identity</span><span>Advanced visual recognition</span><span>Cosmetic perks</span><span>Priority style in future systems</span></div>
+            <p>Identidad visual de alto nivel.</p>
+            <div class="benefits"><span>Prefix de rango</span><span>Identidad premium de lobby</span><span>Reconocimiento visual avanzado</span><span>Perks cosméticos</span></div>
             <div class="rank-bar"></div>
           </article>
 
-          <article class="rank-card nolaris reveal">
-            <small>Rank 05</small>
+          <article class="card rank-card nolaris reveal">
+            <small>Rango 05</small>
             <h3>Nolaris</h3>
             <div class="price">$17.99</div>
             <div class="rank-chat"><span class="rank-nolaris">[Nolaris]</span> Player: Hello!</div>
-            <p>Exclusive red-themed identity.</p>
-            <div class="benefits"><span>Exclusive rank identity</span><span>Red premium prefix</span><span>High-tier visual recognition</span><span>Exclusive cosmetic style</span><span>Network supporter status</span></div>
+            <p>Identidad exclusiva con temática roja.</p>
+            <div class="benefits"><span>Identidad exclusiva</span><span>Prefix rojo premium</span><span>Reconocimiento visual alto</span><span>Estilo cosmético exclusivo</span></div>
             <div class="rank-bar"></div>
           </article>
 
-          <article class="rank-card nolaris-plus reveal">
-            <small>Rank 06</small>
+          <article class="card rank-card nolaris-plus reveal">
+            <small>Rango 06</small>
             <h3>Nolaris+</h3>
             <div class="price">$24.99</div>
             <div class="rank-chat"><span class="rank-plus">[Nolaris+]</span> Player: Hello!</div>
-            <p>Maximum visual recognition.</p>
-            <div class="benefits"><span>Maximum rank identity</span><span>Nolaris+ exclusive style</span><span>Highest visual recognition</span><span>Premium cosmetic access</span><span>Top supporter status</span></div>
+            <p>Máximo reconocimiento visual.</p>
+            <div class="benefits"><span>Identidad máxima de rango</span><span>Estilo exclusivo Nolaris+</span><span>Reconocimiento visual superior</span><span>Acceso cosmético premium</span></div>
             <div class="rank-bar"></div>
           </article>
         </div>
 
         <div class="notice reveal">
-          Prices are examples and may change before release. Benefits are planned examples and may be adjusted before the final opening.
+          Los precios son ejemplos y pueden cambiar antes del lanzamiento. Los beneficios son ejemplos planeados y pueden ajustarse antes de la apertura final.
         </div>
       </div>
     </section>
@@ -779,79 +1685,79 @@
     <section id="chat">
       <div class="container">
         <div class="section-head reveal">
-          <span class="label">Chat Preview</span>
-          <h2>Rank identity inside the player experience.</h2>
-          <p>A clean preview of how planned rank styles may appear in chat.</p>
+          <span class="label">Vista previa de chat</span>
+          <h2>Identidad de rangos dentro de la experiencia.</h2>
+          <p>Una vista visual de cómo podrían verse los estilos de rangos planeados en el chat.</p>
         </div>
 
         <div class="chat-window reveal">
           <div class="chat-top"><i></i><i></i><i></i></div>
           <div class="chat-lines">
-            <div class="chat-line"><b class="rank-iron">[Iron]</b> Steve: Ready to play.</div>
-            <div class="chat-line"><b class="rank-crystal">[Crystal]</b> Alex: The lobby looks clean.</div>
-            <div class="chat-line"><b class="rank-legend">[Legend]</b> Player: Practice soon?</div>
-            <div class="chat-line"><b class="rank-supreme">[Supreme]</b> Player: Nolaris is looking premium.</div>
-            <div class="chat-line"><b class="rank-nolaris">[Nolaris]</b> Player: Welcome to the beta.</div>
-            <div class="chat-line"><b class="rank-plus">[Nolaris+]</b> Player: See you in game.</div>
+            <div class="chat-line"><b class="rank-iron">[Iron]</b> Steve: Listo para jugar.</div>
+            <div class="chat-line"><b class="rank-crystal">[Crystal]</b> Alex: El lobby se ve limpio.</div>
+            <div class="chat-line"><b class="rank-legend">[Legend]</b> Player: ¿Practice pronto?</div>
+            <div class="chat-line"><b class="rank-supreme">[Supreme]</b> Player: Nolaris se ve premium.</div>
+            <div class="chat-line"><b class="rank-nolaris">[Nolaris]</b> Player: Bienvenido a la beta.</div>
+            <div class="chat-line"><b class="rank-plus">[Nolaris+]</b> Player: Nos vemos dentro.</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="features">
+    <section id="caracteristicas">
       <div class="container">
         <div class="section-head reveal">
-          <span class="label">Features</span>
-          <h2>A refined experience made for growth.</h2>
-          <p>Nolaris focuses on quality, stability, style and a smooth player experience.</p>
+          <span class="label">Características</span>
+          <h2>Una experiencia refinada preparada para crecer.</h2>
+          <p>Nolaris se enfoca en calidad, estabilidad, estilo y una experiencia fluida para el jugador.</p>
         </div>
 
         <div class="features-grid">
-          <article class="feature-card reveal"><div class="feature-icon">▣</div><h3>Polished Lobby</h3><p>A clean and carefully designed lobby experience.</p></article>
-          <article class="feature-card reveal"><div class="feature-icon">✦</div><h3>Dark Red Identity</h3><p>Dark theme, red highlights and a professional style.</p></article>
-          <article class="feature-card reveal"><div class="feature-icon">◆</div><h3>Beta Network</h3><p>Active beta development with quality as the main focus.</p></article>
-          <article class="feature-card reveal"><div class="feature-icon">+</div><h3>1.7+ Support</h3><p>Flexible multi-version support for Minecraft players.</p></article>
-          <article class="feature-card reveal"><div class="feature-icon">⇄</div><h3>Future Modes</h3><p>Practice, SkyWars, KitMap and BedWars planned.</p></article>
-          <article class="feature-card reveal"><div class="feature-icon">⛨</div><h3>Community Growth</h3><p>Designed to grow with its community over time.</p></article>
-          <article class="feature-card reveal"><div class="feature-icon">◈</div><h3>Professional UI</h3><p>Clean interface elements and premium presentation.</p></article>
-          <article class="feature-card reveal"><div class="feature-icon">➤</div><h3>Smooth Experience</h3><p>A focused player journey from the first login.</p></article>
-          <article class="feature-card reveal"><div class="feature-icon">♛</div><h3>Premium Ranks</h3><p>Supporter identity with planned cosmetic-focused recognition.</p></article>
-          <article class="feature-card reveal"><div class="feature-icon">✺</div><h3>Animated Website</h3><p>Fluid visual presentation with particles, glow and motion.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">▣</div><h3>Lobby pulido</h3><p>Una experiencia de lobby limpia y cuidadosamente diseñada.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">✦</div><h3>Identidad rojo oscuro</h3><p>Tema oscuro, detalles rojos y estilo profesional.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">◆</div><h3>Network en beta</h3><p>Desarrollo beta activo con la calidad como enfoque principal.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">+</div><h3>Soporte 1.7+</h3><p>Soporte multiversión flexible para jugadores de Minecraft.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">⇄</div><h3>Futuras modalidades</h3><p>Practice, SkyWars, KitMap y BedWars planeados.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">⛨</div><h3>Crecimiento comunitario</h3><p>Diseñada para crecer junto a su comunidad con el tiempo.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">◈</div><h3>UI profesional</h3><p>Elementos de interfaz limpios y presentación premium.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">➤</div><h3>Experiencia fluida</h3><p>Un recorrido cuidado desde el primer ingreso.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">♛</div><h3>Rangos premium</h3><p>Identidad supporter con reconocimiento cosmético planeado.</p></article>
+          <article class="card feature-card reveal"><div class="feature-icon">✺</div><h3>Web optimizada</h3><p>Partículas nuevas, glow ligero y animaciones más fluidas.</p></article>
         </div>
       </div>
     </section>
 
-    <section id="status">
+    <section id="estado">
       <div class="container">
         <div class="section-head reveal">
-          <span class="label">Server Info</span>
-          <h2>Public network information.</h2>
-          <p>Clear public information for players joining Nolaris Network during the beta phase.</p>
+          <span class="label">Información del servidor</span>
+          <h2>Información pública de la network.</h2>
+          <p>Datos claros y públicos para los jugadores que entren a Nolaris Network durante la fase beta.</p>
         </div>
 
         <div class="info-grid">
-          <div class="info-card reveal">
+          <div class="card info-card reveal">
             <div class="info-row"><span>Network</span><strong>Nolaris Network</strong></div>
-            <div class="info-row"><span>Phase</span><strong>Beta</strong></div>
-            <div class="info-row"><span>Version Support</span><strong>1.7+</strong></div>
-            <div class="info-row"><span>Website</span><strong>nolaris.live</strong></div>
-            <div class="info-row"><span>Status</span><strong>Active Development</strong></div>
-            <div class="info-row"><span>Modes</span><strong>Practice, SkyWars, KitMap, BedWars</strong></div>
-            <div class="info-row"><span>Main Focus</span><strong>Quality, Stability, Style</strong></div>
+            <div class="info-row"><span>Fase</span><strong>Beta</strong></div>
+            <div class="info-row"><span>Versiones</span><strong>1.7+</strong></div>
+            <div class="info-row"><span>Sitio web</span><strong>nolaris.live</strong></div>
+            <div class="info-row"><span>Estado</span><strong>Desarrollo activo</strong></div>
+            <div class="info-row"><span>Modalidades</span><strong>Practice, SkyWars, KitMap, BedWars</strong></div>
+            <div class="info-row"><span>Enfoque</span><strong>Calidad, estabilidad y estilo</strong></div>
           </div>
 
-          <aside class="beta-card reveal" id="beta">
-            <span class="label">Beta Phase</span>
-            <h3>The beginning of a new network.</h3>
+          <aside class="card beta-card reveal" id="beta">
+            <span class="label">Fase Beta</span>
+            <h3>El comienzo de una nueva network.</h3>
             <p>
-              Nolaris Network is currently in beta. This phase is focused on polishing the lobby experience,
-              preparing future game modes and building a stable foundation for the community.
+              Nolaris Network se encuentra actualmente en fase beta. Esta etapa está enfocada en pulir
+              la experiencia del lobby, preparar futuras modalidades y construir una base estable para la comunidad.
             </p>
-            <p>Players joining during beta become part of the beginning of the network.</p>
+            <p>Los jugadores que ingresan durante la beta forman parte del comienzo de la network.</p>
 
             <div class="meter-row">
-              <span>Beta preparation</span>
-              <b>Active</b>
+              <span>Preparación beta</span>
+              <b>Activa</b>
             </div>
             <div class="meter"><div></div></div>
           </aside>
@@ -863,36 +1769,36 @@
       <div class="container">
         <div class="section-head reveal">
           <span class="label">Mini Roadmap</span>
-          <h2>Progressive expansion, not improvisation.</h2>
-          <p>First stability, then experience, then expansion.</p>
+          <h2>Expansión progresiva, no improvisación.</h2>
+          <p>Primero estabilidad, luego experiencia, después expansión.</p>
         </div>
 
         <div class="timeline">
-          <article class="road-card reveal"><span>Phase 1</span><h3>Lobby Polish</h3><p>Refining the first player experience and visual identity.</p></article>
-          <article class="road-card reveal"><span>Phase 2</span><h3>Rank System</h3><p>Supporter identity and cosmetic-focused recognition.</p></article>
-          <article class="road-card reveal"><span>Phase 3</span><h3>Practice Beta</h3><p>Competitive PvP foundations and optimized arenas.</p></article>
-          <article class="road-card reveal"><span>Phase 4</span><h3>SkyWars / KitMap</h3><p>Expanding gameplay with competitive modes.</p></article>
-          <article class="road-card reveal"><span>Phase 5</span><h3>BedWars Expansion</h3><p>Team-based gameplay planned for future growth.</p></article>
+          <article class="card road-card reveal"><span>Fase 1</span><h3>Pulido del lobby</h3><p>Refinando la primera experiencia del jugador y la identidad visual.</p></article>
+          <article class="card road-card reveal"><span>Fase 2</span><h3>Sistema de rangos</h3><p>Identidad supporter y reconocimiento cosmético planeado.</p></article>
+          <article class="card road-card reveal"><span>Fase 3</span><h3>Practice Beta</h3><p>Bases competitivas PvP y arenas optimizadas.</p></article>
+          <article class="card road-card reveal"><span>Fase 4</span><h3>SkyWars / KitMap</h3><p>Expansión de jugabilidad con modalidades competitivas.</p></article>
+          <article class="card road-card reveal"><span>Fase 5</span><h3>BedWars</h3><p>Jugabilidad por equipos planeada para el crecimiento futuro.</p></article>
         </div>
       </div>
     </section>
 
-    <section id="play">
+    <section id="jugar">
       <div class="container">
         <div class="cta reveal">
           <div>
-            <span class="label">Join the Beta</span>
-            <h2>Be part of the beginning.</h2>
+            <span class="label">Únete a la beta</span>
+            <h2>Sé parte del comienzo.</h2>
             <p>
-              Join Nolaris Network and experience the beta phase of a new Minecraft network
-              built with style, quality and long-term growth in mind.
+              Entra a Nolaris Network y vive la fase beta de una nueva network de Minecraft
+              construida con estilo, calidad y crecimiento a largo plazo.
             </p>
           </div>
 
           <div class="cta-box">
-            <small>Official Address</small>
+            <small>Dirección oficial</small>
             <strong>nolaris.live</strong>
-            <button class="btn btn-primary" data-copy="nolaris.live">Play on nolaris.live</button>
+            <button class="btn btn-primary" data-copy="nolaris.live">Jugar en nolaris.live</button>
           </div>
         </div>
       </div>
@@ -903,25 +1809,116 @@
     <div class="container footer-inner">
       <div>
         <strong>Nolaris Network</strong>
-        <span>Beta Phase · nolaris.live</span>
+        <span>Fase Beta · nolaris.live</span>
       </div>
-      <p>© Nolaris Network. All rights reserved.</p>
+      <p>© Nolaris Network. Todos los derechos reservados.</p>
     </div>
   </footer>
 
-  <div class="toast" id="toast">IP copied: nolaris.live</div>
+  <div class="toast" id="toast">IP copiada: nolaris.live</div>
 
   <script>
     const nav = document.getElementById("nav");
     const menuBtn = document.getElementById("menuBtn");
     const navLinks = document.getElementById("navLinks");
     const toast = document.getElementById("toast");
-    const particles = document.getElementById("particles");
     const mouseGlow = document.getElementById("mouseGlow");
+    const canvas = document.getElementById("particlesCanvas");
+    const ctx = canvas.getContext("2d", { alpha: true });
+
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 3;
+    let glowX = mouseX;
+    let glowY = mouseY;
+    let lastFrame = 0;
+
+    const isMobile = window.innerWidth < 760;
+    const particleCount = isMobile ? 26 : 52;
+
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function createParticles() {
+      particles = [];
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 1.8 + 0.8,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: -(Math.random() * 0.35 + 0.12),
+          alpha: Math.random() * 0.5 + 0.25
+        });
+      }
+    }
+
+    function animateParticles(time) {
+      requestAnimationFrame(animateParticles);
+
+      if (time - lastFrame < 16) return;
+      lastFrame = time;
+
+      ctx.clearRect(0, 0, width, height);
+
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.y < -20) {
+          p.y = height + 20;
+          p.x = Math.random() * width;
+        }
+
+        if (p.x < -20) p.x = width + 20;
+        if (p.x > width + 20) p.x = -20;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255, 42, 42, ${p.alpha})`;
+        ctx.shadowColor = "rgba(255, 42, 42, 0.55)";
+        ctx.shadowBlur = isMobile ? 5 : 8;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      ctx.shadowBlur = 0;
+    }
+
+    function animateMouseGlow() {
+      glowX += (mouseX - glowX) * 0.08;
+      glowY += (mouseY - glowY) * 0.08;
+
+      if (mouseGlow) {
+        mouseGlow.style.transform = `translate3d(${glowX - 180}px, ${glowY - 180}px, 0)`;
+      }
+
+      requestAnimationFrame(animateMouseGlow);
+    }
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createParticles();
+    });
+
+    window.addEventListener("mousemove", (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+    }, { passive: true });
 
     window.addEventListener("scroll", () => {
       nav.classList.toggle("scrolled", window.scrollY > 18);
-    });
+    }, { passive: true });
 
     menuBtn.addEventListener("click", () => {
       nav.classList.toggle("open");
@@ -935,15 +1932,12 @@
       });
     });
 
-    window.addEventListener("mousemove", (event) => {
-      mouseGlow.style.left = event.clientX + "px";
-      mouseGlow.style.top = event.clientY + "px";
-    });
-
     function showToast(message) {
       toast.textContent = message;
       toast.classList.add("show");
+
       clearTimeout(showToast.timer);
+
       showToast.timer = setTimeout(() => {
         toast.classList.remove("show");
       }, 1800);
@@ -952,9 +1946,9 @@
     async function copyText(text) {
       try {
         await navigator.clipboard.writeText(text);
-        showToast(`IP copied: ${text}`);
+        showToast(`IP copiada: ${text}`);
       } catch (error) {
-        showToast(`Server IP: ${text}`);
+        showToast(`IP del servidor: ${text}`);
       }
     }
 
@@ -966,43 +1960,23 @@
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
+
           entry.target.classList.add("visible");
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.14 }
+      { threshold: 0.12 }
     );
 
     document.querySelectorAll(".reveal").forEach((element, index) => {
-      element.style.transitionDelay = `${Math.min(index % 8, 7) * 55}ms`;
+      element.style.transitionDelay = `${Math.min(index % 6, 5) * 45}ms`;
       observer.observe(element);
     });
 
-    function createParticles() {
-      const total = window.innerWidth < 700 ? 34 : 78;
-
-      for (let i = 0; i < total; i++) {
-        const particle = document.createElement("span");
-        particle.className = "particle";
-
-        const size = 2 + Math.random() * 3;
-        const left = Math.random() * 100;
-        const duration = 7 + Math.random() * 11;
-        const delay = Math.random() * -14;
-        const drift = `${(Math.random() - 0.5) * 235}px`;
-
-        particle.style.left = `${left}%`;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.animationDuration = `${duration}s`;
-        particle.style.animationDelay = `${delay}s`;
-        particle.style.setProperty("--drift", drift);
-
-        particles.appendChild(particle);
-      }
-    }
-
+    resizeCanvas();
     createParticles();
+    requestAnimationFrame(animateParticles);
+    requestAnimationFrame(animateMouseGlow);
   </script>
 </body>
-</html>
+  </html>
