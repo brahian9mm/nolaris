@@ -16,8 +16,8 @@
     :root {
       --bg: #050505;
       --bg2: #0b0b0b;
-      --panel: rgba(18, 18, 20, 0.78);
-      --panel2: rgba(28, 18, 20, 0.72);
+      --panel: rgba(255, 255, 255, 0.04);
+      --panel2: rgba(0, 0, 0, 0.32);
       --red-dark: #5a0000;
       --red-mid: #8b0000;
       --red: #cc0000;
@@ -26,8 +26,8 @@
       --muted: #a3a3a3;
       --muted2: #747474;
       --border: rgba(255, 42, 42, 0.18);
-      --border2: rgba(255, 42, 42, 0.36);
-      --radius: 24px;
+      --border2: rgba(255, 42, 42, 0.34);
+      --radius: 22px;
       --max: 1180px;
     }
 
@@ -46,10 +46,37 @@
       color: var(--text);
       font-family: "Inter", sans-serif;
       background:
-        radial-gradient(circle at 20% 8%, rgba(255, 42, 42, 0.14), transparent 30%),
+        radial-gradient(circle at 18% 8%, rgba(255, 42, 42, 0.13), transparent 28%),
         radial-gradient(circle at 82% 0%, rgba(90, 0, 0, 0.28), transparent 34%),
-        linear-gradient(180deg, #050505 0%, #090708 52%, #030303 100%);
+        linear-gradient(180deg, #050505 0%, #080607 50%, #030303 100%);
       overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255, 42, 42, 0.28) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1.5px);
+      background-size: 92px 92px, 140px 140px;
+      background-position: 0 0, 40px 60px;
+      opacity: 0.38;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(circle at center, black, transparent 78%);
     }
 
     a {
@@ -68,90 +95,27 @@
       z-index: 2;
     }
 
-    #particlesCanvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -4;
-      pointer-events: none;
-    }
-
-    .grid-bg {
-      position: fixed;
-      inset: 0;
-      z-index: -5;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(circle at center, black, transparent 78%);
-    }
-
-    .mouse-glow {
-      position: fixed;
-      width: 360px;
-      height: 360px;
-      left: 50%;
-      top: 30%;
-      transform: translate3d(-50%, -50%, 0);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: -3;
-      background: radial-gradient(circle, rgba(255, 42, 42, 0.13), transparent 66%);
-      opacity: 0.75;
-      will-change: transform;
-    }
-
-    .ambient {
-      position: fixed;
-      pointer-events: none;
-      z-index: -6;
-      border-radius: 999px;
-      filter: blur(70px);
-      opacity: 0.55;
-    }
-
-    .ambient.one {
-      width: 420px;
-      height: 420px;
-      left: -160px;
-      top: 90px;
-      background: rgba(255, 42, 42, 0.14);
-    }
-
-    .ambient.two {
-      width: 460px;
-      height: 460px;
-      right: -190px;
-      top: -120px;
-      background: rgba(90, 0, 0, 0.35);
-    }
-
     .nav {
       position: fixed;
-      top: 16px;
+      top: 14px;
       left: 50%;
       transform: translateX(-50%);
       width: min(100% - 28px, var(--max));
       z-index: 50;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: rgba(8, 8, 10, 0.84);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.45);
-      transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      background: rgba(8, 8, 10, 0.92);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.48);
+      transition: border-color 0.22s ease, background 0.22s ease;
     }
 
     .nav.scrolled {
-      background: rgba(7, 7, 9, 0.94);
-      border-color: rgba(255, 42, 42, 0.34);
-      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.58);
+      border-color: var(--border2);
+      background: rgba(7, 7, 9, 0.96);
     }
 
     .nav-inner {
-      min-height: 66px;
+      min-height: 64px;
       padding: 0 16px 0 20px;
       display: flex;
       align-items: center;
@@ -167,23 +131,23 @@
     }
 
     .brand-logo {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       display: grid;
       place-items: center;
-      border-radius: 15px;
+      border-radius: 14px;
       font-family: "Rajdhani", sans-serif;
-      font-size: 26px;
+      font-size: 25px;
       font-weight: 700;
       background: linear-gradient(145deg, rgba(255, 42, 42, 0.32), rgba(90, 0, 0, 0.46));
       border: 1px solid rgba(255, 42, 42, 0.34);
-      box-shadow: 0 0 24px rgba(255, 42, 42, 0.18);
+      box-shadow: 0 0 20px rgba(255, 42, 42, 0.17);
     }
 
     .brand strong {
       display: block;
       font-family: "Rajdhani", sans-serif;
-      font-size: 21px;
+      font-size: 20px;
       line-height: 1;
     }
 
@@ -209,11 +173,11 @@
       font-weight: 800;
       padding: 10px 10px;
       border-radius: 999px;
-      transition: background 0.2s ease, color 0.2s ease;
+      transition: background 0.18s ease, color 0.18s ease;
     }
 
     .nav-links a:hover {
-      color: white;
+      color: #ffffff;
       background: rgba(255, 42, 42, 0.1);
     }
 
@@ -229,7 +193,7 @@
       background: rgba(255, 255, 255, 0.045);
       color: var(--text);
       cursor: pointer;
-      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
 
     .ip-pill {
@@ -255,7 +219,6 @@
       border-radius: 14px;
     }
 
-    .pulse,
     .ip-pill i,
     .chip i,
     .live i {
@@ -264,25 +227,12 @@
       display: inline-block;
       border-radius: 999px;
       background: var(--neon);
-      box-shadow: 0 0 12px var(--neon);
-      animation: pulse 1.8s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.62;
-        transform: scale(0.9);
-      }
-
-      50% {
-        opacity: 1;
-        transform: scale(1.14);
-      }
+      box-shadow: 0 0 10px var(--neon);
     }
 
     .hero {
       min-height: 100vh;
-      padding: 170px 0 88px;
+      padding: 158px 0 82px;
       position: relative;
       display: flex;
       align-items: center;
@@ -293,39 +243,27 @@
       content: "";
       position: absolute;
       inset: auto 0 0 0;
-      height: 240px;
+      height: 220px;
       background: linear-gradient(0deg, #050505 0%, transparent 100%);
       pointer-events: none;
       z-index: 1;
     }
 
-    .speed-lines {
+    .hero-glow {
       position: absolute;
       inset: 0;
       pointer-events: none;
-      opacity: 0.58;
       background:
-        linear-gradient(120deg, transparent 0%, rgba(255, 42, 42, 0.06) 34%, transparent 62%),
-        linear-gradient(60deg, transparent 0%, rgba(255, 255, 255, 0.025) 50%, transparent 72%);
-      animation: moveLines 11s ease-in-out infinite alternate;
-      will-change: transform;
-    }
-
-    @keyframes moveLines {
-      from {
-        transform: translate3d(-16px, 0, 0);
-      }
-
-      to {
-        transform: translate3d(16px, 0, 0);
-      }
+        linear-gradient(120deg, transparent 0%, rgba(255, 42, 42, 0.055) 35%, transparent 64%),
+        radial-gradient(circle at 68% 38%, rgba(255, 42, 42, 0.16), transparent 28%);
+      z-index: 0;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(330px, 0.76fr);
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.74fr);
       align-items: center;
-      gap: 52px;
+      gap: 50px;
     }
 
     .chip {
@@ -348,7 +286,7 @@
 
     h1 {
       font-family: "Rajdhani", sans-serif;
-      font-size: clamp(62px, 10vw, 128px);
+      font-size: clamp(60px, 10vw, 126px);
       line-height: 0.84;
       letter-spacing: -2px;
       text-transform: uppercase;
@@ -358,13 +296,13 @@
     h1 span {
       display: block;
       color: var(--text);
-      text-shadow: 0 0 24px rgba(255, 42, 42, 0.24);
+      text-shadow: 0 0 20px rgba(255, 42, 42, 0.24);
     }
 
     h1 strong {
       display: block;
       font-weight: 700;
-      background: linear-gradient(90deg, #fff 0%, #ffb0b0 18%, #ff2a2a 52%, #710000 100%);
+      background: linear-gradient(90deg, #fff 0%, #ffb0b0 20%, #ff2a2a 55%, #710000 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -373,8 +311,8 @@
     .hero-text {
       max-width: 735px;
       color: #cacad2;
-      font-size: clamp(16px, 2vw, 20px);
-      line-height: 1.82;
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.8;
       margin-bottom: 32px;
     }
 
@@ -386,9 +324,9 @@
     }
 
     .btn {
-      min-height: 54px;
-      padding: 0 24px;
-      border-radius: 16px;
+      min-height: 52px;
+      padding: 0 22px;
+      border-radius: 15px;
       border: 1px solid transparent;
       display: inline-flex;
       align-items: center;
@@ -398,32 +336,17 @@
       font-size: 14px;
       font-weight: 900;
       letter-spacing: 0.3px;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.24s ease, background 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
-    }
-
-    .btn::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
-      transform: translateX(-120%);
-      transition: transform 0.45s ease;
-    }
-
-    .btn:hover::before {
-      transform: translateX(120%);
+      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
     }
 
     .btn-primary {
       background: linear-gradient(135deg, #ff2a2a, #8a0000);
-      box-shadow: 0 0 26px rgba(255, 42, 42, 0.28);
+      box-shadow: 0 0 22px rgba(255, 42, 42, 0.24);
     }
 
     .btn-primary:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 38px rgba(255, 42, 42, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(255, 42, 42, 0.36);
     }
 
     .btn-secondary {
@@ -432,7 +355,7 @@
     }
 
     .btn-secondary:hover {
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       border-color: rgba(255, 42, 42, 0.52);
       background: rgba(255, 42, 42, 0.09);
     }
@@ -447,7 +370,7 @@
     .metric {
       padding: 18px;
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.038);
+      background: var(--panel);
       border: 1px solid rgba(255, 42, 42, 0.16);
     }
 
@@ -469,12 +392,12 @@
     .hero-panel {
       position: relative;
       padding: 26px;
-      border-radius: 34px;
+      border-radius: 32px;
       background:
-        linear-gradient(145deg, rgba(255, 42, 42, 0.09), transparent 45%),
-        rgba(12, 10, 13, 0.82);
-      border: 1px solid rgba(255, 42, 42, 0.25);
-      box-shadow: 0 0 38px rgba(255, 42, 42, 0.13);
+        linear-gradient(145deg, rgba(255, 42, 42, 0.08), transparent 45%),
+        rgba(12, 10, 13, 0.84);
+      border: 1px solid rgba(255, 42, 42, 0.24);
+      box-shadow: 0 0 30px rgba(255, 42, 42, 0.12);
       overflow: hidden;
     }
 
@@ -516,68 +439,49 @@
     }
 
     .core-screen {
-      min-height: 300px;
+      min-height: 290px;
       display: grid;
       place-items: center;
-      border-radius: 28px;
+      border-radius: 26px;
       border: 1px solid rgba(255, 42, 42, 0.18);
       background:
-        radial-gradient(circle at 50% 50%, rgba(255, 42, 42, 0.22), transparent 34%),
+        radial-gradient(circle at 50% 50%, rgba(255, 42, 42, 0.2), transparent 34%),
         rgba(0, 0, 0, 0.28);
       overflow: hidden;
       position: relative;
     }
 
+    .core-screen::before,
+    .core-screen::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(255, 42, 42, 0.15);
+      border-radius: 999px;
+    }
+
+    .core-screen::before {
+      width: 220px;
+      height: 220px;
+    }
+
+    .core-screen::after {
+      width: 160px;
+      height: 160px;
+    }
+
     .core-logo {
-      width: 126px;
-      height: 126px;
+      width: 122px;
+      height: 122px;
       display: grid;
       place-items: center;
       border-radius: 30px;
       font-family: "Rajdhani", sans-serif;
-      font-size: 72px;
+      font-size: 70px;
       font-weight: 700;
       background: linear-gradient(145deg, rgba(255, 42, 42, 0.32), rgba(90, 0, 0, 0.36));
       border: 1px solid rgba(255, 42, 42, 0.34);
-      box-shadow: 0 0 36px rgba(255, 42, 42, 0.26);
-      animation: coreFloat 4.8s ease-in-out infinite;
-      will-change: transform;
-    }
-
-    @keyframes coreFloat {
-      0%, 100% {
-        transform: translate3d(0, 0, 0);
-      }
-
-      50% {
-        transform: translate3d(0, -12px, 0);
-      }
-    }
-
-    .orbit {
-      position: absolute;
-      border-radius: 999px;
-      border: 1px solid rgba(255, 42, 42, 0.16);
-      animation: spin 16s linear infinite;
-      will-change: transform;
-    }
-
-    .orbit.one {
-      width: 230px;
-      height: 230px;
-    }
-
-    .orbit.two {
-      width: 168px;
-      height: 168px;
-      animation-duration: 11s;
-      animation-direction: reverse;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+      box-shadow: 0 0 28px rgba(255, 42, 42, 0.22);
+      z-index: 2;
     }
 
     .mini-status {
@@ -609,13 +513,13 @@
     }
 
     section {
-      padding: 98px 0;
+      padding: 92px 0;
       position: relative;
     }
 
     .section-head {
       max-width: 850px;
-      margin-bottom: 42px;
+      margin-bottom: 40px;
     }
 
     .label {
@@ -631,7 +535,7 @@
     .section-head h2,
     .cta h2 {
       font-family: "Rajdhani", sans-serif;
-      font-size: clamp(40px, 5vw, 70px);
+      font-size: clamp(39px, 5vw, 68px);
       line-height: 0.96;
       text-transform: uppercase;
       letter-spacing: -0.8px;
@@ -641,7 +545,7 @@
     .section-head p,
     .cta p {
       color: #c4c4cc;
-      line-height: 1.86;
+      line-height: 1.82;
       font-size: 16px;
     }
 
@@ -650,15 +554,15 @@
       overflow: hidden;
       border: 1px solid rgba(255, 42, 42, 0.16);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.038);
-      transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+      background: var(--panel);
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
     }
 
     .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(255, 42, 42, 0.34);
-      background: rgba(255, 42, 42, 0.055);
-      box-shadow: 0 0 30px rgba(255, 42, 42, 0.12);
+      transform: translateY(-4px);
+      border-color: rgba(255, 42, 42, 0.32);
+      background: rgba(255, 42, 42, 0.052);
+      box-shadow: 0 0 24px rgba(255, 42, 42, 0.1);
     }
 
     .split {
@@ -667,8 +571,20 @@
       gap: 22px;
     }
 
+    .glass,
+    .progress-card,
+    .mode-card,
+    .rank-card,
+    .feature-card,
+    .info-card,
+    .beta-card,
+    .road-card,
+    .chat-window {
+      padding: 24px;
+    }
+
     .glass {
-      padding: 32px;
+      padding: 30px;
     }
 
     .number {
@@ -692,7 +608,7 @@
 
     .glass p {
       color: #cacad2;
-      line-height: 1.9;
+      line-height: 1.86;
       margin-bottom: 16px;
     }
 
@@ -702,7 +618,7 @@
     }
 
     .brand-points div {
-      padding: 18px;
+      padding: 17px;
       border-radius: 18px;
       background: rgba(0, 0, 0, 0.24);
       border: 1px solid rgba(255, 42, 42, 0.12);
@@ -728,8 +644,7 @@
     }
 
     .progress-card {
-      min-height: 146px;
-      padding: 20px;
+      min-height: 142px;
     }
 
     .progress-card small {
@@ -744,7 +659,7 @@
 
     .progress-card h3 {
       font-family: "Rajdhani", sans-serif;
-      font-size: 25px;
+      font-size: 24px;
       text-transform: uppercase;
       line-height: 1;
       margin-bottom: 16px;
@@ -781,44 +696,46 @@
       background: rgba(255, 255, 255, 0.035);
     }
 
-    .modes-grid {
+    .modes-grid,
+    .features-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 18px;
     }
 
     .mode-card {
-      min-height: 310px;
-      padding: 28px;
+      min-height: 300px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .mode-icon {
-      width: 56px;
-      height: 56px;
+    .mode-icon,
+    .feature-icon {
+      width: 54px;
+      height: 54px;
       display: grid;
       place-items: center;
-      border-radius: 19px;
-      margin-bottom: 24px;
-      background: linear-gradient(145deg, rgba(255, 42, 42, 0.28), rgba(90, 0, 0, 0.28));
-      border: 1px solid rgba(255, 42, 42, 0.28);
-      font-size: 25px;
+      border-radius: 18px;
+      margin-bottom: 22px;
+      background: linear-gradient(145deg, rgba(255, 42, 42, 0.26), rgba(90, 0, 0, 0.28));
+      border: 1px solid rgba(255, 42, 42, 0.26);
+      font-size: 24px;
     }
 
     .mode-card h3 {
       font-family: "Rajdhani", sans-serif;
-      font-size: 37px;
+      font-size: 36px;
       text-transform: uppercase;
       margin: 14px 0 12px;
     }
 
-    .mode-card p {
+    .mode-card p,
+    .feature-card p {
       color: #aaaab4;
-      line-height: 1.75;
+      line-height: 1.72;
       font-size: 14px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .mode-line {
@@ -826,7 +743,7 @@
       border-radius: 999px;
       background: linear-gradient(90deg, var(--neon), transparent);
       opacity: 0.62;
-      margin-top: 24px;
+      margin-top: 22px;
     }
 
     .ranks-grid {
@@ -836,8 +753,7 @@
     }
 
     .rank-card {
-      min-height: 330px;
-      padding: 24px;
+      min-height: 324px;
     }
 
     .rank-card small {
@@ -859,7 +775,7 @@
 
     .price {
       font-family: "Rajdhani", sans-serif;
-      font-size: 29px;
+      font-size: 28px;
       margin-bottom: 14px;
     }
 
@@ -927,7 +843,6 @@
     }
 
     .chat-window {
-      padding: 26px;
       background: rgba(5, 5, 5, 0.58);
       border: 1px solid rgba(255, 42, 42, 0.18);
       border-radius: var(--radius);
@@ -961,41 +876,16 @@
       font-size: 13px;
     }
 
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 18px;
-    }
-
     .feature-card {
-      min-height: 220px;
-      padding: 25px;
-    }
-
-    .feature-icon {
-      width: 50px;
-      height: 50px;
-      display: grid;
-      place-items: center;
-      margin-bottom: 22px;
-      border-radius: 17px;
-      background: linear-gradient(145deg, rgba(255, 42, 42, 0.28), rgba(90, 0, 0, 0.28));
-      border: 1px solid rgba(255, 42, 42, 0.28);
-      font-size: 23px;
+      min-height: 212px;
     }
 
     .feature-card h3 {
       font-family: "Rajdhani", sans-serif;
-      font-size: 26px;
+      font-size: 25px;
       line-height: 1;
       text-transform: uppercase;
       margin-bottom: 13px;
-    }
-
-    .feature-card p {
-      color: #aaaab4;
-      line-height: 1.75;
-      font-size: 14px;
     }
 
     .info-grid {
@@ -1006,7 +896,6 @@
     }
 
     .info-card {
-      padding: 28px;
       display: grid;
       gap: 12px;
     }
@@ -1035,20 +924,16 @@
       font-weight: 800;
     }
 
-    .beta-card {
-      padding: 34px;
-    }
-
     .beta-card h3 {
       font-family: "Rajdhani", sans-serif;
-      font-size: 38px;
+      font-size: 37px;
       text-transform: uppercase;
       margin-bottom: 14px;
     }
 
     .beta-card p {
       color: #c4c4cc;
-      line-height: 1.86;
+      line-height: 1.82;
       margin-bottom: 22px;
     }
 
@@ -1087,8 +972,7 @@
     }
 
     .road-card {
-      min-height: 214px;
-      padding: 25px;
+      min-height: 206px;
     }
 
     .road-card span {
@@ -1106,7 +990,7 @@
 
     .road-card h3 {
       font-family: "Rajdhani", sans-serif;
-      font-size: 30px;
+      font-size: 29px;
       text-transform: uppercase;
       margin-bottom: 10px;
     }
@@ -1122,13 +1006,13 @@
       grid-template-columns: minmax(0, 1fr) 345px;
       gap: 28px;
       align-items: center;
-      padding: clamp(34px, 6vw, 64px);
-      border-radius: 34px;
+      padding: clamp(32px, 6vw, 60px);
+      border-radius: 32px;
       background:
-        radial-gradient(circle at 20% 0%, rgba(255, 42, 42, 0.22), transparent 43%),
+        radial-gradient(circle at 20% 0%, rgba(255, 42, 42, 0.2), transparent 43%),
         rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 42, 42, 0.2);
-      box-shadow: 0 0 40px rgba(255, 42, 42, 0.14);
+      box-shadow: 0 0 30px rgba(255, 42, 42, 0.12);
     }
 
     .cta-box {
@@ -1204,9 +1088,8 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(26px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-      will-change: opacity, transform;
+      transform: translateY(22px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .reveal.visible {
@@ -1246,23 +1129,13 @@
     }
 
     @media (max-width: 860px) {
-      .mouse-glow {
-        display: none;
-      }
-
-      .ambient {
-        filter: blur(55px);
-        opacity: 0.38;
-      }
-
       .nav {
         top: 10px;
         border-radius: 24px;
-        backdrop-filter: blur(10px);
       }
 
       .nav-inner {
-        min-height: 64px;
+        min-height: 62px;
       }
 
       .menu-btn {
@@ -1309,6 +1182,11 @@
     }
 
     @media (max-width: 600px) {
+      body::before {
+        opacity: 0.22;
+        background-size: 120px 120px, 170px 170px;
+      }
+
       .container {
         width: min(100% - 26px, var(--max));
       }
@@ -1326,7 +1204,7 @@
       }
 
       .hero {
-        padding: 122px 0 64px;
+        padding: 118px 0 58px;
       }
 
       h1 {
@@ -1356,13 +1234,18 @@
       .info-card,
       .beta-card,
       .road-card,
-      .chat-window,
-      .cta-box {
-        padding: 22px;
+      .chat-window {
+        padding: 21px;
       }
 
       .core-screen {
-        min-height: 245px;
+        min-height: 230px;
+      }
+
+      .core-logo {
+        width: 108px;
+        height: 108px;
+        font-size: 62px;
       }
 
       .info-row {
@@ -1388,12 +1271,6 @@
 </head>
 
 <body>
-  <canvas id="particlesCanvas"></canvas>
-  <div class="grid-bg"></div>
-  <div class="mouse-glow" id="mouseGlow"></div>
-  <div class="ambient one"></div>
-  <div class="ambient two"></div>
-
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#inicio" class="brand">
@@ -1422,7 +1299,7 @@
   </nav>
 
   <header class="hero" id="inicio">
-    <div class="speed-lines"></div>
+    <div class="hero-glow"></div>
 
     <div class="container hero-grid">
       <div class="hero-content reveal">
@@ -1458,12 +1335,10 @@
             <span>Panel de Network</span>
             <h2>Nolaris Core</h2>
           </div>
-          <div class="live"><i></i>Online</div>
+          <div class="live"><i></i>En línea</div>
         </div>
 
         <div class="core-screen">
-          <div class="orbit one"></div>
-          <div class="orbit two"></div>
           <div class="core-logo">N</div>
         </div>
 
@@ -1621,7 +1496,7 @@
             <div class="price">$2.99</div>
             <div class="rank-chat"><span class="rank-iron">[Iron]</span> Player: Hello!</div>
             <p>Identidad visual supporter planeada.</p>
-            <div class="benefits"><span>Prefix de rango</span><span>Cosméticos básicos de lobby</span><span>Reconocimiento supporter</span><span>Acceso cosmético futuro</span></div>
+            <div class="benefits"><span>Prefix de rango</span><span>Cosméticos básicos de lobby</span><span>Reconocimiento supporter</span></div>
             <div class="rank-bar"></div>
           </article>
 
@@ -1631,7 +1506,7 @@
             <div class="price">$4.99</div>
             <div class="rank-chat"><span class="rank-crystal">[Crystal]</span> Player: Hello!</div>
             <p>Reconocimiento supporter mejorado.</p>
-            <div class="benefits"><span>Prefix de rango</span><span>Cosméticos de lobby mejorados</span><span>Estilo de color en chat</span><span>Reconocimiento supporter</span></div>
+            <div class="benefits"><span>Prefix de rango</span><span>Cosméticos de lobby mejorados</span><span>Estilo de color en chat</span></div>
             <div class="rank-bar"></div>
           </article>
 
@@ -1641,7 +1516,7 @@
             <div class="price">$7.99</div>
             <div class="rank-chat"><span class="rank-legend">[Legend]</span> Player: Hello!</div>
             <p>Estilo premium para supporters de largo plazo.</p>
-            <div class="benefits"><span>Prefix de rango</span><span>Estilo premium de chat</span><span>Cosméticos avanzados de lobby</span><span>Beneficios cosméticos futuros</span></div>
+            <div class="benefits"><span>Prefix de rango</span><span>Estilo premium de chat</span><span>Cosméticos avanzados</span></div>
             <div class="rank-bar"></div>
           </article>
 
@@ -1651,7 +1526,7 @@
             <div class="price">$11.99</div>
             <div class="rank-chat"><span class="rank-supreme">[Supreme]</span> Player: Hello!</div>
             <p>Identidad visual de alto nivel.</p>
-            <div class="benefits"><span>Prefix de rango</span><span>Identidad premium de lobby</span><span>Reconocimiento visual avanzado</span><span>Perks cosméticos</span></div>
+            <div class="benefits"><span>Prefix de rango</span><span>Identidad premium de lobby</span><span>Reconocimiento visual avanzado</span></div>
             <div class="rank-bar"></div>
           </article>
 
@@ -1661,7 +1536,7 @@
             <div class="price">$17.99</div>
             <div class="rank-chat"><span class="rank-nolaris">[Nolaris]</span> Player: Hello!</div>
             <p>Identidad exclusiva con temática roja.</p>
-            <div class="benefits"><span>Identidad exclusiva</span><span>Prefix rojo premium</span><span>Reconocimiento visual alto</span><span>Estilo cosmético exclusivo</span></div>
+            <div class="benefits"><span>Identidad exclusiva</span><span>Prefix rojo premium</span><span>Reconocimiento visual alto</span></div>
             <div class="rank-bar"></div>
           </article>
 
@@ -1671,7 +1546,7 @@
             <div class="price">$24.99</div>
             <div class="rank-chat"><span class="rank-plus">[Nolaris+]</span> Player: Hello!</div>
             <p>Máximo reconocimiento visual.</p>
-            <div class="benefits"><span>Identidad máxima de rango</span><span>Estilo exclusivo Nolaris+</span><span>Reconocimiento visual superior</span><span>Acceso cosmético premium</span></div>
+            <div class="benefits"><span>Identidad máxima de rango</span><span>Estilo exclusivo Nolaris+</span><span>Acceso cosmético premium</span></div>
             <div class="rank-bar"></div>
           </article>
         </div>
@@ -1721,8 +1596,6 @@
           <article class="card feature-card reveal"><div class="feature-icon">⛨</div><h3>Crecimiento comunitario</h3><p>Diseñada para crecer junto a su comunidad con el tiempo.</p></article>
           <article class="card feature-card reveal"><div class="feature-icon">◈</div><h3>UI profesional</h3><p>Elementos de interfaz limpios y presentación premium.</p></article>
           <article class="card feature-card reveal"><div class="feature-icon">➤</div><h3>Experiencia fluida</h3><p>Un recorrido cuidado desde el primer ingreso.</p></article>
-          <article class="card feature-card reveal"><div class="feature-icon">♛</div><h3>Rangos premium</h3><p>Identidad supporter con reconocimiento cosmético planeado.</p></article>
-          <article class="card feature-card reveal"><div class="feature-icon">✺</div><h3>Web optimizada</h3><p>Partículas nuevas, glow ligero y animaciones más fluidas.</p></article>
         </div>
       </div>
     </section>
@@ -1822,99 +1695,6 @@
     const menuBtn = document.getElementById("menuBtn");
     const navLinks = document.getElementById("navLinks");
     const toast = document.getElementById("toast");
-    const mouseGlow = document.getElementById("mouseGlow");
-    const canvas = document.getElementById("particlesCanvas");
-    const ctx = canvas.getContext("2d", { alpha: true });
-
-    let width = 0;
-    let height = 0;
-    let particles = [];
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 3;
-    let glowX = mouseX;
-    let glowY = mouseY;
-    let lastFrame = 0;
-
-    const isMobile = window.innerWidth < 760;
-    const particleCount = isMobile ? 26 : 52;
-
-    function resizeCanvas() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      canvas.style.width = width + "px";
-      canvas.style.height = height + "px";
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    function createParticles() {
-      particles = [];
-
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          r: Math.random() * 1.8 + 0.8,
-          vx: (Math.random() - 0.5) * 0.22,
-          vy: -(Math.random() * 0.35 + 0.12),
-          alpha: Math.random() * 0.5 + 0.25
-        });
-      }
-    }
-
-    function animateParticles(time) {
-      requestAnimationFrame(animateParticles);
-
-      if (time - lastFrame < 16) return;
-      lastFrame = time;
-
-      ctx.clearRect(0, 0, width, height);
-
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.y < -20) {
-          p.y = height + 20;
-          p.x = Math.random() * width;
-        }
-
-        if (p.x < -20) p.x = width + 20;
-        if (p.x > width + 20) p.x = -20;
-
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(255, 42, 42, ${p.alpha})`;
-        ctx.shadowColor = "rgba(255, 42, 42, 0.55)";
-        ctx.shadowBlur = isMobile ? 5 : 8;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      ctx.shadowBlur = 0;
-    }
-
-    function animateMouseGlow() {
-      glowX += (mouseX - glowX) * 0.08;
-      glowY += (mouseY - glowY) * 0.08;
-
-      if (mouseGlow) {
-        mouseGlow.style.transform = `translate3d(${glowX - 180}px, ${glowY - 180}px, 0)`;
-      }
-
-      requestAnimationFrame(animateMouseGlow);
-    }
-
-    window.addEventListener("resize", () => {
-      resizeCanvas();
-      createParticles();
-    });
-
-    window.addEventListener("mousemove", (event) => {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-    }, { passive: true });
 
     window.addEventListener("scroll", () => {
       nav.classList.toggle("scrolled", window.scrollY > 18);
@@ -1940,7 +1720,7 @@
 
       showToast.timer = setTimeout(() => {
         toast.classList.remove("show");
-      }, 1800);
+      }, 1700);
     }
 
     async function copyText(text) {
@@ -1969,14 +1749,9 @@
     );
 
     document.querySelectorAll(".reveal").forEach((element, index) => {
-      element.style.transitionDelay = `${Math.min(index % 6, 5) * 45}ms`;
+      element.style.transitionDelay = `${Math.min(index % 4, 3) * 35}ms`;
       observer.observe(element);
     });
-
-    resizeCanvas();
-    createParticles();
-    requestAnimationFrame(animateParticles);
-    requestAnimationFrame(animateMouseGlow);
   </script>
 </body>
   </html>
